@@ -1,0 +1,913 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		08BE73B675D6AD24152FDDC7 /* Pods_AirXmacTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECA4538C8267D7840CAE204 /* Pods_AirXmacTests.framework */; };
+		2F03CA602A38EEE400E9D93F /* libairx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0615C72987366E00B151F7 /* libairx.dylib */; };
+		2F03CA612A38EEE400E9D93F /* libairx.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 2F0615C72987366E00B151F7 /* libairx.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		2F03CA652A39F10F00E9D93F /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F03CA642A39F10F00E9D93F /* Defaults.swift */; };
+		2F03CA672A39F24700E9D93F /* CredentialType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F03CA662A39F24700E9D93F /* CredentialType.swift */; };
+		2F0615BA298621B200B151F7 /* AirXWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0615B9298621B200B151F7 /* AirXWrapper.m */; };
+		2F0615C62986322600B151F7 /* UnsafeString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0615C52986322600B151F7 /* UnsafeString.swift */; };
+		2F069C352985B4DC009DD1E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F069C342985B4DC009DD1E6 /* Assets.xcassets */; };
+		2F069C382985B4DC009DD1E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F069C372985B4DC009DD1E6 /* Preview Assets.xcassets */; };
+		2F069C432985B4DC009DD1E6 /* SwiftUIPracticeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F069C422985B4DC009DD1E6 /* SwiftUIPracticeTests.swift */; };
+		2F069C4D2985B4DC009DD1E6 /* SwiftUIPracticeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F069C4C2985B4DC009DD1E6 /* SwiftUIPracticeUITests.swift */; };
+		2F069C4F2985B4DC009DD1E6 /* SwiftUIPracticeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F069C4E2985B4DC009DD1E6 /* SwiftUIPracticeUITestsLaunchTests.swift */; };
+		2FCF62312A3A6EB70071752F /* AirXCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF62302A3A6EB70071752F /* AirXCloud.swift */; };
+		2FCF62352A3A75CB0071752F /* StringHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF62342A3A75CB0071752F /* StringHash.swift */; };
+		2FCF62372A3A7DBB0071752F /* AirXmac-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FCF62362A3A7DBB0071752F /* AirXmac-Info.plist */; };
+		2FCF62392A3A95510071752F /* AccountUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF62382A3A95510071752F /* AccountUtil.swift */; };
+		2FCF62402A3ABB1B0071752F /* GlobalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF623F2A3ABB1B0071752F /* GlobalState.swift */; };
+		2FF5EB342A39FDA7005198BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF5EB332A39FDA7005198BF /* AppDelegate.swift */; };
+		2FF5EB382A3A062C005198BF /* ControlPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF5EB372A3A062C005198BF /* ControlPanelView.swift */; };
+		2FF5EB402A3A3F36005198BF /* AirXService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF5EB3F2A3A3F36005198BF /* AirXService.swift */; };
+		2FF5EB422A3A4C00005198BF /* UIUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF5EB412A3A4C00005198BF /* UIUtil.swift */; };
+		2FF5EB472A3A5A6B005198BF /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF5EB462A3A5A6B005198BF /* AboutView.swift */; };
+		2FF5EB4A2A3A5C73005198BF /* Versions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF5EB492A3A5C73005198BF /* Versions.swift */; };
+		2FF5EB4C2A3A68D3005198BF /* ThemeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF5EB4B2A3A68D3005198BF /* ThemeMode.swift */; };
+		CE21E7C974BEA46F81BB73AB /* Pods_AirXmac_AirXmacUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 162699650082236BCD57D529 /* Pods_AirXmac_AirXmacUITests.framework */; };
+		D54303C63580D65DCEF1C7CF /* Pods_AirXmac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D6884FCBCB0298BDF2B74FF /* Pods_AirXmac.framework */; };
+		FFB055D62A0EC17300351C21 /* FileNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB055D52A0EC17300351C21 /* FileNotice.swift */; };
+		FFB055D82A0EC34A00351C21 /* TextNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB055D72A0EC34A00351C21 /* TextNoticeView.swift */; };
+		FFB055DA2A0F638500351C21 /* ThemeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB055D92A0F638500351C21 /* ThemeUtil.swift */; };
+		FFB055DE2A1A712C00351C21 /* AirXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB055DD2A1A712C00351C21 /* AirXApp.swift */; };
+		FFB055E22A1A86CE00351C21 /* TextNoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB055E12A1A86CE00351C21 /* TextNoticeViewModel.swift */; };
+		FFB055E42A1EFC6000351C21 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB055E32A1EFC6000351C21 /* LoginView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2F069C3F2985B4DC009DD1E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F069C252985B4DB009DD1E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2F069C2C2985B4DB009DD1E6;
+			remoteInfo = SwiftUIPractice;
+		};
+		2F069C492985B4DC009DD1E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F069C252985B4DB009DD1E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2F069C2C2985B4DB009DD1E6;
+			remoteInfo = SwiftUIPractice;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2F03CA622A38EEE400E9D93F /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2F03CA612A38EEE400E9D93F /* libairx.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0CEF05B0FF288C331D246D2D /* Pods-AirXmac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirXmac.debug.xcconfig"; path = "Target Support Files/Pods-AirXmac/Pods-AirXmac.debug.xcconfig"; sourceTree = "<group>"; };
+		162699650082236BCD57D529 /* Pods_AirXmac_AirXmacUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirXmac_AirXmacUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F03CA642A39F10F00E9D93F /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		2F03CA662A39F24700E9D93F /* CredentialType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialType.swift; sourceTree = "<group>"; };
+		2F0615B8298621B100B151F7 /* SwiftUIPractice-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftUIPractice-Bridging-Header.h"; sourceTree = "<group>"; };
+		2F0615B9298621B200B151F7 /* AirXWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirXWrapper.m; sourceTree = "<group>"; };
+		2F0615BB2986230300B151F7 /* AirXBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirXBridge.h; sourceTree = "<group>"; };
+		2F0615C52986322600B151F7 /* UnsafeString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeString.swift; sourceTree = "<group>"; };
+		2F0615C72987366E00B151F7 /* libairx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libairx.dylib; path = ../../CLionProjects/libairx/target/release/deps/libairx.dylib; sourceTree = "<group>"; };
+		2F069C2D2985B4DB009DD1E6 /* AirXmac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirXmac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F069C342985B4DC009DD1E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2F069C372985B4DC009DD1E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2F069C3E2985B4DC009DD1E6 /* AirXmacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirXmacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F069C422985B4DC009DD1E6 /* SwiftUIPracticeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIPracticeTests.swift; sourceTree = "<group>"; };
+		2F069C482985B4DC009DD1E6 /* AirXmacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirXmacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F069C4C2985B4DC009DD1E6 /* SwiftUIPracticeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIPracticeUITests.swift; sourceTree = "<group>"; };
+		2F069C4E2985B4DC009DD1E6 /* SwiftUIPracticeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIPracticeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2FCF62302A3A6EB70071752F /* AirXCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirXCloud.swift; sourceTree = "<group>"; };
+		2FCF62342A3A75CB0071752F /* StringHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHash.swift; sourceTree = "<group>"; };
+		2FCF62362A3A7DBB0071752F /* AirXmac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AirXmac-Info.plist"; sourceTree = "<group>"; };
+		2FCF62382A3A95510071752F /* AccountUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountUtil.swift; sourceTree = "<group>"; };
+		2FCF623F2A3ABB1B0071752F /* GlobalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalState.swift; sourceTree = "<group>"; };
+		2FF5EB332A39FDA7005198BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2FF5EB352A3A0092005198BF /* AirXmac.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = AirXmac.entitlements; sourceTree = "<group>"; };
+		2FF5EB372A3A062C005198BF /* ControlPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPanelView.swift; sourceTree = "<group>"; };
+		2FF5EB3F2A3A3F36005198BF /* AirXService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirXService.swift; sourceTree = "<group>"; };
+		2FF5EB412A3A4C00005198BF /* UIUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtil.swift; sourceTree = "<group>"; };
+		2FF5EB462A3A5A6B005198BF /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		2FF5EB492A3A5C73005198BF /* Versions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Versions.swift; sourceTree = "<group>"; };
+		2FF5EB4B2A3A68D3005198BF /* ThemeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeMode.swift; sourceTree = "<group>"; };
+		34EF2758B4AD71ADECBCCECC /* Pods-AirXmac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirXmac.release.xcconfig"; path = "Target Support Files/Pods-AirXmac/Pods-AirXmac.release.xcconfig"; sourceTree = "<group>"; };
+		3CD4A06877030F095FFBCA5A /* Pods-AirXmac-AirXmacUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirXmac-AirXmacUITests.debug.xcconfig"; path = "Target Support Files/Pods-AirXmac-AirXmacUITests/Pods-AirXmac-AirXmacUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		3D6884FCBCB0298BDF2B74FF /* Pods_AirXmac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirXmac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8923513058014BC424AB60A3 /* Pods-AirXmacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirXmacTests.release.xcconfig"; path = "Target Support Files/Pods-AirXmacTests/Pods-AirXmacTests.release.xcconfig"; sourceTree = "<group>"; };
+		8ECA4538C8267D7840CAE204 /* Pods_AirXmacTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirXmacTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		928AC81A1BACA50DDCD46695 /* Pods-AirXmac-AirXmacUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirXmac-AirXmacUITests.release.xcconfig"; path = "Target Support Files/Pods-AirXmac-AirXmacUITests/Pods-AirXmac-AirXmacUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D096C6A681D911E1B8C858AD /* Pods-AirXmacTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirXmacTests.debug.xcconfig"; path = "Target Support Files/Pods-AirXmacTests/Pods-AirXmacTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FFB055D52A0EC17300351C21 /* FileNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNotice.swift; sourceTree = "<group>"; };
+		FFB055D72A0EC34A00351C21 /* TextNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNoticeView.swift; sourceTree = "<group>"; };
+		FFB055D92A0F638500351C21 /* ThemeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeUtil.swift; sourceTree = "<group>"; };
+		FFB055DD2A1A712C00351C21 /* AirXApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirXApp.swift; sourceTree = "<group>"; };
+		FFB055E12A1A86CE00351C21 /* TextNoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNoticeViewModel.swift; sourceTree = "<group>"; };
+		FFB055E32A1EFC6000351C21 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2F069C2A2985B4DB009DD1E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F03CA602A38EEE400E9D93F /* libairx.dylib in Frameworks */,
+				D54303C63580D65DCEF1C7CF /* Pods_AirXmac.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2F069C3B2985B4DC009DD1E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08BE73B675D6AD24152FDDC7 /* Pods_AirXmacTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2F069C452985B4DC009DD1E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE21E7C974BEA46F81BB73AB /* Pods_AirXmac_AirXmacUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0D3E7EECC0F3332E3523B0AE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF05B0FF288C331D246D2D /* Pods-AirXmac.debug.xcconfig */,
+				34EF2758B4AD71ADECBCCECC /* Pods-AirXmac.release.xcconfig */,
+				3CD4A06877030F095FFBCA5A /* Pods-AirXmac-AirXmacUITests.debug.xcconfig */,
+				928AC81A1BACA50DDCD46695 /* Pods-AirXmac-AirXmacUITests.release.xcconfig */,
+				D096C6A681D911E1B8C858AD /* Pods-AirXmacTests.debug.xcconfig */,
+				8923513058014BC424AB60A3 /* Pods-AirXmacTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		2F03CA632A39F0F600E9D93F /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				FFB055D92A0F638500351C21 /* ThemeUtil.swift */,
+				2F03CA642A39F10F00E9D93F /* Defaults.swift */,
+				2FF5EB412A3A4C00005198BF /* UIUtil.swift */,
+				2FCF62382A3A95510071752F /* AccountUtil.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		2F0615B72986218700B151F7 /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				2F0615B9298621B200B151F7 /* AirXWrapper.m */,
+				2F0615B8298621B100B151F7 /* SwiftUIPractice-Bridging-Header.h */,
+				2F0615BB2986230300B151F7 /* AirXBridge.h */,
+				2F0615C52986322600B151F7 /* UnsafeString.swift */,
+			);
+			path = Bridge;
+			sourceTree = "<group>";
+		};
+		2F0615BC2986238200B151F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2F0615C72987366E00B151F7 /* libairx.dylib */,
+				3D6884FCBCB0298BDF2B74FF /* Pods_AirXmac.framework */,
+				162699650082236BCD57D529 /* Pods_AirXmac_AirXmacUITests.framework */,
+				8ECA4538C8267D7840CAE204 /* Pods_AirXmacTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2F069C242985B4DB009DD1E6 = {
+			isa = PBXGroup;
+			children = (
+				2FCF62362A3A7DBB0071752F /* AirXmac-Info.plist */,
+				2F069C2F2985B4DB009DD1E6 /* AirX */,
+				2F069C412985B4DC009DD1E6 /* AirXmacTests */,
+				2F069C4B2985B4DC009DD1E6 /* AirXmacUITests */,
+				2F069C2E2985B4DB009DD1E6 /* Products */,
+				2F0615BC2986238200B151F7 /* Frameworks */,
+				0D3E7EECC0F3332E3523B0AE /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		2F069C2E2985B4DB009DD1E6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2F069C2D2985B4DB009DD1E6 /* AirXmac.app */,
+				2F069C3E2985B4DC009DD1E6 /* AirXmacTests.xctest */,
+				2F069C482985B4DC009DD1E6 /* AirXmacUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2F069C2F2985B4DB009DD1E6 /* AirX */ = {
+			isa = PBXGroup;
+			children = (
+				2FCF623E2A3ABB020071752F /* ViewModel */,
+				2FF5EB352A3A0092005198BF /* AirXmac.entitlements */,
+				FFB055DD2A1A712C00351C21 /* AirXApp.swift */,
+				2FF5EB332A39FDA7005198BF /* AppDelegate.swift */,
+				2FF5EB452A3A5597005198BF /* Enum */,
+				2FF5EB432A3A5561005198BF /* View */,
+				2FF5EB3E2A3A3F2B005198BF /* Service */,
+				2F03CA632A39F0F600E9D93F /* Util */,
+				2FF5EB482A3A5C6B005198BF /* Extension */,
+				2F0615B72986218700B151F7 /* Bridge */,
+				2F069C342985B4DC009DD1E6 /* Assets.xcassets */,
+				2F069C362985B4DC009DD1E6 /* Preview Content */,
+			);
+			path = AirX;
+			sourceTree = "<group>";
+		};
+		2F069C362985B4DC009DD1E6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				2F069C372985B4DC009DD1E6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2F069C412985B4DC009DD1E6 /* AirXmacTests */ = {
+			isa = PBXGroup;
+			children = (
+				2F069C422985B4DC009DD1E6 /* SwiftUIPracticeTests.swift */,
+			);
+			path = AirXmacTests;
+			sourceTree = "<group>";
+		};
+		2F069C4B2985B4DC009DD1E6 /* AirXmacUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2F069C4C2985B4DC009DD1E6 /* SwiftUIPracticeUITests.swift */,
+				2F069C4E2985B4DC009DD1E6 /* SwiftUIPracticeUITestsLaunchTests.swift */,
+			);
+			path = AirXmacUITests;
+			sourceTree = "<group>";
+		};
+		2FCF623E2A3ABB020071752F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2FCF623F2A3ABB1B0071752F /* GlobalState.swift */,
+				FFB055E12A1A86CE00351C21 /* TextNoticeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2FF5EB3E2A3A3F2B005198BF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				2FF5EB3F2A3A3F36005198BF /* AirXService.swift */,
+				2FCF62302A3A6EB70071752F /* AirXCloud.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		2FF5EB432A3A5561005198BF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FFB055D52A0EC17300351C21 /* FileNotice.swift */,
+				FFB055D72A0EC34A00351C21 /* TextNoticeView.swift */,
+				2FF5EB372A3A062C005198BF /* ControlPanelView.swift */,
+				FFB055E32A1EFC6000351C21 /* LoginView.swift */,
+				2FF5EB462A3A5A6B005198BF /* AboutView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2FF5EB452A3A5597005198BF /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				2F03CA662A39F24700E9D93F /* CredentialType.swift */,
+				2FF5EB4B2A3A68D3005198BF /* ThemeMode.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		2FF5EB482A3A5C6B005198BF /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				2FF5EB492A3A5C73005198BF /* Versions.swift */,
+				2FCF62342A3A75CB0071752F /* StringHash.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2F069C2C2985B4DB009DD1E6 /* AirXmac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2F069C522985B4DC009DD1E6 /* Build configuration list for PBXNativeTarget "AirXmac" */;
+			buildPhases = (
+				195B29A66C4C0AB7CC582455 /* [CP] Check Pods Manifest.lock */,
+				2F069C292985B4DB009DD1E6 /* Sources */,
+				2F069C2A2985B4DB009DD1E6 /* Frameworks */,
+				2F069C2B2985B4DB009DD1E6 /* Resources */,
+				2F03CA622A38EEE400E9D93F /* Embed Libraries */,
+				6F0E3DEE4EC84537CF538339 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AirXmac;
+			productName = SwiftUIPractice;
+			productReference = 2F069C2D2985B4DB009DD1E6 /* AirXmac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2F069C3D2985B4DC009DD1E6 /* AirXmacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2F069C552985B4DC009DD1E6 /* Build configuration list for PBXNativeTarget "AirXmacTests" */;
+			buildPhases = (
+				78E31C5DC960A8425249663A /* [CP] Check Pods Manifest.lock */,
+				2F069C3A2985B4DC009DD1E6 /* Sources */,
+				2F069C3B2985B4DC009DD1E6 /* Frameworks */,
+				2F069C3C2985B4DC009DD1E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2F069C402985B4DC009DD1E6 /* PBXTargetDependency */,
+			);
+			name = AirXmacTests;
+			productName = SwiftUIPracticeTests;
+			productReference = 2F069C3E2985B4DC009DD1E6 /* AirXmacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2F069C472985B4DC009DD1E6 /* AirXmacUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2F069C582985B4DC009DD1E6 /* Build configuration list for PBXNativeTarget "AirXmacUITests" */;
+			buildPhases = (
+				F651F1C2357711071DFFD541 /* [CP] Check Pods Manifest.lock */,
+				2F069C442985B4DC009DD1E6 /* Sources */,
+				2F069C452985B4DC009DD1E6 /* Frameworks */,
+				2F069C462985B4DC009DD1E6 /* Resources */,
+				427F52BCD4C48BD336E9F596 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2F069C4A2985B4DC009DD1E6 /* PBXTargetDependency */,
+			);
+			name = AirXmacUITests;
+			productName = SwiftUIPracticeUITests;
+			productReference = 2F069C482985B4DC009DD1E6 /* AirXmacUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2F069C252985B4DB009DD1E6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					2F069C2C2985B4DB009DD1E6 = {
+						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
+					};
+					2F069C3D2985B4DC009DD1E6 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 2F069C2C2985B4DB009DD1E6;
+					};
+					2F069C472985B4DC009DD1E6 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 2F069C2C2985B4DB009DD1E6;
+					};
+				};
+			};
+			buildConfigurationList = 2F069C282985B4DB009DD1E6 /* Build configuration list for PBXProject "AirXmac" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2F069C242985B4DB009DD1E6;
+			productRefGroup = 2F069C2E2985B4DB009DD1E6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2F069C2C2985B4DB009DD1E6 /* AirXmac */,
+				2F069C3D2985B4DC009DD1E6 /* AirXmacTests */,
+				2F069C472985B4DC009DD1E6 /* AirXmacUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2F069C2B2985B4DB009DD1E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F069C382985B4DC009DD1E6 /* Preview Assets.xcassets in Resources */,
+				2F069C352985B4DC009DD1E6 /* Assets.xcassets in Resources */,
+				2FCF62372A3A7DBB0071752F /* AirXmac-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2F069C3C2985B4DC009DD1E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2F069C462985B4DC009DD1E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		195B29A66C4C0AB7CC582455 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AirXmac-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		427F52BCD4C48BD336E9F596 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AirXmac-AirXmacUITests/Pods-AirXmac-AirXmacUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AirXmac-AirXmacUITests/Pods-AirXmac-AirXmacUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AirXmac-AirXmacUITests/Pods-AirXmac-AirXmacUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F0E3DEE4EC84537CF538339 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AirXmac/Pods-AirXmac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AirXmac/Pods-AirXmac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AirXmac/Pods-AirXmac-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78E31C5DC960A8425249663A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AirXmacTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F651F1C2357711071DFFD541 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AirXmac-AirXmacUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2F069C292985B4DB009DD1E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FF5EB4C2A3A68D3005198BF /* ThemeMode.swift in Sources */,
+				2FF5EB472A3A5A6B005198BF /* AboutView.swift in Sources */,
+				2FCF62312A3A6EB70071752F /* AirXCloud.swift in Sources */,
+				2FF5EB342A39FDA7005198BF /* AppDelegate.swift in Sources */,
+				2FF5EB4A2A3A5C73005198BF /* Versions.swift in Sources */,
+				2F0615BA298621B200B151F7 /* AirXWrapper.m in Sources */,
+				2FCF62352A3A75CB0071752F /* StringHash.swift in Sources */,
+				2FF5EB422A3A4C00005198BF /* UIUtil.swift in Sources */,
+				2FF5EB402A3A3F36005198BF /* AirXService.swift in Sources */,
+				FFB055D62A0EC17300351C21 /* FileNotice.swift in Sources */,
+				FFB055DA2A0F638500351C21 /* ThemeUtil.swift in Sources */,
+				2F03CA672A39F24700E9D93F /* CredentialType.swift in Sources */,
+				2FF5EB382A3A062C005198BF /* ControlPanelView.swift in Sources */,
+				FFB055E42A1EFC6000351C21 /* LoginView.swift in Sources */,
+				2F0615C62986322600B151F7 /* UnsafeString.swift in Sources */,
+				FFB055E22A1A86CE00351C21 /* TextNoticeViewModel.swift in Sources */,
+				2FCF62392A3A95510071752F /* AccountUtil.swift in Sources */,
+				2F03CA652A39F10F00E9D93F /* Defaults.swift in Sources */,
+				2FCF62402A3ABB1B0071752F /* GlobalState.swift in Sources */,
+				FFB055DE2A1A712C00351C21 /* AirXApp.swift in Sources */,
+				FFB055D82A0EC34A00351C21 /* TextNoticeView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2F069C3A2985B4DC009DD1E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F069C432985B4DC009DD1E6 /* SwiftUIPracticeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2F069C442985B4DC009DD1E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F069C4D2985B4DC009DD1E6 /* SwiftUIPracticeUITests.swift in Sources */,
+				2F069C4F2985B4DC009DD1E6 /* SwiftUIPracticeUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2F069C402985B4DC009DD1E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2F069C2C2985B4DB009DD1E6 /* AirXmac */;
+			targetProxy = 2F069C3F2985B4DC009DD1E6 /* PBXContainerItemProxy */;
+		};
+		2F069C4A2985B4DC009DD1E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2F069C2C2985B4DB009DD1E6 /* AirXmac */;
+			targetProxy = 2F069C492985B4DC009DD1E6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2F069C502985B4DC009DD1E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = /Users/miku/CLionProjects/libairx/target/release/deps;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2F069C512985B4DC009DD1E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = /Users/miku/CLionProjects/libairx/target/release/deps;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		2F069C532985B4DC009DD1E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0CEF05B0FF288C331D246D2D /* Pods-AirXmac.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = AirX/AirXmac.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AirX/Preview Content\"";
+				DEVELOPMENT_TEAM = 275C3GY4R5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "AirXmac-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = AirX;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023 Shijunyi Liu";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mikutart.AirXmac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AirX/Bridge/SwiftUIPractice-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		2F069C542985B4DC009DD1E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34EF2758B4AD71ADECBCCECC /* Pods-AirXmac.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = AirX/AirXmac.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AirX/Preview Content\"";
+				DEVELOPMENT_TEAM = 275C3GY4R5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "AirXmac-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = AirX;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023 Shijunyi Liu";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mikutart.AirXmac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AirX/Bridge/SwiftUIPractice-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		2F069C562985B4DC009DD1E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D096C6A681D911E1B8C858AD /* Pods-AirXmacTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 275C3GY4R5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mikutart.SwiftUIPracticeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftUIPractice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftUIPractice";
+			};
+			name = Debug;
+		};
+		2F069C572985B4DC009DD1E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8923513058014BC424AB60A3 /* Pods-AirXmacTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 275C3GY4R5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mikutart.SwiftUIPracticeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftUIPractice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftUIPractice";
+			};
+			name = Release;
+		};
+		2F069C592985B4DC009DD1E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CD4A06877030F095FFBCA5A /* Pods-AirXmac-AirXmacUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 275C3GY4R5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mikutart.SwiftUIPracticeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = SwiftUIPractice;
+			};
+			name = Debug;
+		};
+		2F069C5A2985B4DC009DD1E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 928AC81A1BACA50DDCD46695 /* Pods-AirXmac-AirXmacUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 275C3GY4R5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mikutart.SwiftUIPracticeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = SwiftUIPractice;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2F069C282985B4DB009DD1E6 /* Build configuration list for PBXProject "AirXmac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F069C502985B4DC009DD1E6 /* Debug */,
+				2F069C512985B4DC009DD1E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2F069C522985B4DC009DD1E6 /* Build configuration list for PBXNativeTarget "AirXmac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F069C532985B4DC009DD1E6 /* Debug */,
+				2F069C542985B4DC009DD1E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2F069C552985B4DC009DD1E6 /* Build configuration list for PBXNativeTarget "AirXmacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F069C562985B4DC009DD1E6 /* Debug */,
+				2F069C572985B4DC009DD1E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2F069C582985B4DC009DD1E6 /* Build configuration list for PBXNativeTarget "AirXmacUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F069C592985B4DC009DD1E6 /* Debug */,
+				2F069C5A2985B4DC009DD1E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2F069C252985B4DB009DD1E6 /* Project object */;
+}
