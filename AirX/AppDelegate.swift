@@ -11,8 +11,6 @@ import SwiftUI
 import GoogleSignIn
 
 class AppDelegate: NSResponder, NSApplicationDelegate {
-    var lock: NSDistributedLock?
-    
     func applicationDidFinishLaunching(_ notification: Notification) {
         preventMultipleInstances()
         
@@ -26,10 +24,6 @@ class AppDelegate: NSResponder, NSApplicationDelegate {
     // Keep alive in background.
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return false
-    }
-    
-    func applicationWillTerminate(_ notification: Notification) {
-        lock?.unlock()
     }
     
     func registerForGoogleSignIn() {
