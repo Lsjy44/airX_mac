@@ -29,6 +29,7 @@ struct FileNotice: View {
             }
             .frame(width: 317, height: 168)
             
+                        Spacer() // 将文本推向左侧
             
             VStack (spacing: 0){
                 // 上半部分
@@ -40,7 +41,6 @@ struct FileNotice: View {
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(theme.textColor)
                         
-                        Spacer() // 将文本推向左侧
                     }
                     HStack {
                         Text(fileSizeRepresentation).font(.system(size: 16))

@@ -13,9 +13,67 @@ private var interrupt = false
 private var pasteboard = NSPasteboard.general
 private var lastIncomingString = ""
 private var textChangeSubscribers = Dictionary<String, (String, String) -> Void>()
+private var fileSendingProgressSubscribers = Dictionary<String, (UInt8, UInt64, UInt64, UInt8) -> Void>();
+private var fileComingSubscribers = Dictionary<String, (UInt64, String, String) -> Void>();
+private var filePartSubscribers = Dictionary<String, (UInt8, UInt32, UInt32, Data) -> Void>();
 
 private func shouldInterrupt() -> Bool {
     return interrupt
+}
+
+/*
+ void (*text_callback_c)(const char*, uint32_t, const char*, uint32_t),
+ void (*file_coming_callback_c)(uint64_t, const char*, uint32_t, const char*, uint32_t),
+ void (*file_sending_callback_c)(uint8_t, uint64_t, uint64_t, uint8_t),
+ void (*file_part_callback_c)(uint8_t, uint32_t, uint32_t, const char*),
+ */
+
+private func onFilePart(
+    fileId: UInt8,
+    offset: UInt32,
+    length: UInt32,
+    data: UnsafePointer<CChar>?
+) {
+    guard let data else {
+        return
+    }
+    
+    let dataManaged = Data(bytes: data, count: Int(length))
+
+    for subscriber in filePartSubscribers.values {
+        subscriber(fileId, offset, length, dataManaged)
+    }
+}
+
+private func onFileSendingProgress(
+    fileId: UInt8,
+    progress: UInt64,
+    total: UInt64,
+    status: UInt8
+) {
+    for subscriber in fileSendingProgressSubscribers.values {
+        // TODO: better status repr
+        subscriber(fileId, progress, total, status)
+    }
+}
+
+private func onFileComing(
+    fileSize: UInt64,
+    fileNameStringPointer: UnsafePointer<CChar>?,
+    fileNameStringLength: UInt32,
+    sourceIpAddressStringPointer: UnsafePointer<CChar>?,
+    sourceIpAddressStringLength: UInt32
+) {
+    guard let fileNameStringPointer, let sourceIpAddressStringPointer else {
+        return
+    }
+    
+    let fileName = String(cString: fileNameStringPointer)
+    let sourceIpAddressString = String(cString: sourceIpAddressStringPointer)
+    
+    for subscriber in fileComingSubscribers.values {
+        subscriber(fileSize, fileName, sourceIpAddressString)
+    }
 }
 
 private func onTextReceived(
@@ -64,10 +122,7 @@ class AirXService {
     public static let groupIdentity                = Defaults.int(.groupIdentity)
     public static let host                         = "0.0.0.0"
 
-    public static func subscribeToTextChange(
-        id: String,
-        handler: @escaping (String, String) -> Void
-    ) {
+    public static func subscribeToTextChange(id: String, handler: @escaping (String, String) -> Void) {
         textChangeSubscribers[id] = handler
     }
     
@@ -83,13 +138,20 @@ class AirXService {
             hostBuffer,
             host.utf8Size(),
             UInt16(textServiceListenPort),
-            UInt8(groupIdentity)
+            UInt32(groupIdentity)
         )
         hostBuffer.deallocate()
         
         // Run text and lan discovery service in seperate threads.
         threads.append(Thread(block: {
-            airx_text_service(airxPointer, onTextReceived, shouldInterrupt)
+            airx_data_service(
+                airxPointer,
+                onTextReceived,
+                onFileComing,
+                onFileSendingProgress,
+                onFilePart,
+                shouldInterrupt
+            )
         }))
         threads.append(Thread(block: {
             airx_lan_discovery_service(airxPointer, shouldInterrupt)

@@ -219,6 +219,7 @@
 		2F069C2F2985B4DB009DD1E6 /* AirX */ = {
 			isa = PBXGroup;
 			children = (
+				2F0615B72986218700B151F7 /* Bridge */,
 				2FCF623E2A3ABB020071752F /* ViewModel */,
 				2FF5EB352A3A0092005198BF /* AirXmac.entitlements */,
 				FFB055DD2A1A712C00351C21 /* AirXApp.swift */,
@@ -228,7 +229,6 @@
 				2FF5EB3E2A3A3F2B005198BF /* Service */,
 				2F03CA632A39F0F600E9D93F /* Util */,
 				2FF5EB482A3A5C6B005198BF /* Extension */,
-				2F0615B72986218700B151F7 /* Bridge */,
 				2F069C342985B4DC009DD1E6 /* Assets.xcassets */,
 				2F069C362985B4DC009DD1E6 /* Preview Content */,
 			);

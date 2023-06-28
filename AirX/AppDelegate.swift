@@ -14,11 +14,13 @@ class AppDelegate: NSResponder, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         preventMultipleInstances()
         
-        print("AirX macOS Frontend")
+        airx_init()
         Defaults.tryInitializeConfigurationsForFirstRun()
         registerForGoogleSignIn()
         AccountUtil.tryAutomaticLogin()
         AirXService.startAsync()
+
+        print("AirX macOS Frontend")
     }
 
     // Keep alive in background.
