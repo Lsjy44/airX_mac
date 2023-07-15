@@ -202,7 +202,7 @@ class AirXService {
         let len = Int(airx_get_peers(airxPointer, buffer))
 
         // 简单封个口
-        buffer.advanced(by: len).update(repeating: 0, count: 1)
+        buffer.advanced(by: len).assign(repeating: 0, count: 1)
         
         // Decode and free.
         defer { buffer.deallocate() }
@@ -248,7 +248,7 @@ class AirXService {
         let len = Int(airx_version_string(buffer))
         
         // Ensure zero terminated
-        buffer.advanced(by: len).update(repeating: 0, count: 1)
+        buffer.advanced(by: len).assign(repeating: 0, count: 1)
         defer { buffer.deallocate() }
         return String(cString: buffer)
     }
