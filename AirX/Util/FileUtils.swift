@@ -18,14 +18,17 @@ class FileUtils {
 
     /// /Users/miku/1.txt -> /Users/miku/
     public static func getPath(fullPath: String) -> String {
-        return (pathToNormalFormat(fullPath) as NSString).deletingLastPathComponent
+        let path = (pathToNormalFormat(fullPath) as NSString)
+            .deletingLastPathComponent
+        return path.removingPercentEncoding ?? path
     }
     
     /// /Users/miku/1.txt -> 1.txt
     /// C:\aaa\1.txt -> 1.txt
     public static func getFileName(fullPath: String) -> String {
-        return (pathToNormalFormat(fullPath) as NSString)
+        let path = (pathToNormalFormat(fullPath) as NSString)
             .lastPathComponent
+        return path.removingPercentEncoding ?? path
     }
     
     private static var fileId: UInt8 = 0;

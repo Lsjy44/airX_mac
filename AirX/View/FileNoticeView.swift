@@ -13,7 +13,7 @@ struct FileNoticeView: View {
     @Environment(\.presentationMode) var presentationMode
 
     @State private var theme: Theme = LightMode()
-    @Binding var receivingFile: ReceiveFile
+    @ObservedObject var receivingFile: ReceiveFile
     
     func onBlock() {
         guard UIUtils.alertBox(
@@ -64,7 +64,12 @@ struct FileNoticeView: View {
                     Spacer().frame(width: 27)
                     
                     HStack {
-                        Text(truncatedFilename(receivingFile.remoteFullPath, maxLength: 10))
+                        Text(
+                            truncatedFilename(
+                                FileUtils.getFileName(
+                                    fullPath: receivingFile.localSaveFullPath.path()),
+                                maxLength: 10)
+                        )
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(theme.textColor)
                     }
@@ -171,6 +176,6 @@ func truncatedFilename(_ filename: String, maxLength: Int) -> String {
 struct FileNotice_Previews: PreviewProvider {
     static var previews: some View {
         FileNoticeView(
-            receivingFile: .constant(GlobalState.shared.receiveFiles[255]!))
+            receivingFile: GlobalState.shared.receiveFiles[255]!)
     }
 }

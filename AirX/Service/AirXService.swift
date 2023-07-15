@@ -64,8 +64,13 @@ private func onFileComing(
         return
     }
     
-    let fileName = String(cString: fileNameStringPointer)
-    let sourceIpAddressString = String(cString: sourceIpAddressStringPointer)
+    let fileName = String(cString: fileNameStringPointer, length: Int(fileNameStringLength))
+    let sourceIpAddressString = String(cString: sourceIpAddressStringPointer, length: Int(sourceIpAddressStringLength))
+    
+    guard let fileName, let sourceIpAddressString else {
+        return
+    }
+    
     let peer = Peer.parse(sourceIpAddressString)
     
     guard let peer else {
@@ -88,8 +93,13 @@ private func onTextReceived(
         return
     }
     
-    let incomingString = String(cString: incomingStringPointer)
-    let sourceIpAddressString = String(cString: sourceIpAddressStringPointer)
+    let incomingString = String(cString: incomingStringPointer, length: Int(incomingStringLength))
+    let sourceIpAddressString = String(cString: sourceIpAddressStringPointer, length: Int(sourceIpAddressStringLength))
+    
+    guard let incomingString, let sourceIpAddressString else {
+        return
+    }
+    
     let peer = Peer.parse(sourceIpAddressString)
     
     guard let peer else {
@@ -202,7 +212,7 @@ class AirXService {
         let len = Int(airx_get_peers(airxPointer, buffer))
 
         // 简单封个口
-        buffer.advanced(by: len).assign(repeating: 0, count: 1)
+        buffer.advanced(by: len).update(repeating: 0, count: 1)
         
         // Decode and free.
         defer { buffer.deallocate() }
@@ -248,7 +258,7 @@ class AirXService {
         let len = Int(airx_version_string(buffer))
         
         // Ensure zero terminated
-        buffer.advanced(by: len).assign(repeating: 0, count: 1)
+        buffer.advanced(by: len).update(repeating: 0, count: 1)
         defer { buffer.deallocate() }
         return String(cString: buffer)
     }

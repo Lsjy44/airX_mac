@@ -28,7 +28,7 @@ class FileNoticeWindow: NSWindow {
         
         if let receivingFile = GlobalState.shared.receiveFiles[fileId] {
             contentView = NSHostingView(
-                rootView: FileNoticeView(receivingFile: .constant(receivingFile)))
+                rootView: FileNoticeView(receivingFile: receivingFile))
         }
         else {
             contentView = NSHostingView(rootView: Text("Error"))

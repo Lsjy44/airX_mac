@@ -32,6 +32,7 @@
 		2FCF62372A3A7DBB0071752F /* AirXmac-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FCF62362A3A7DBB0071752F /* AirXmac-Info.plist */; };
 		2FCF62392A3A95510071752F /* AccountUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF62382A3A95510071752F /* AccountUtils.swift */; };
 		2FCF62402A3ABB1B0071752F /* GlobalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF623F2A3ABB1B0071752F /* GlobalState.swift */; };
+		2FF26A682A62FE7400CAEDBC /* StringFromLengthenPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF26A672A62FE7400CAEDBC /* StringFromLengthenPointer.swift */; };
 		2FF46E4F2A61FF2B00848083 /* FileWriterWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF46E4E2A61FF2B00848083 /* FileWriterWorker.swift */; };
 		2FF46E522A61FFD900848083 /* BlockingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF46E512A61FFD900848083 /* BlockingQueue.swift */; };
 		2FF46E542A6206C900848083 /* PeerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF46E532A6206C900848083 /* PeerPickerView.swift */; };
@@ -114,6 +115,7 @@
 		2FCF62362A3A7DBB0071752F /* AirXmac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AirXmac-Info.plist"; sourceTree = "<group>"; };
 		2FCF62382A3A95510071752F /* AccountUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountUtils.swift; sourceTree = "<group>"; };
 		2FCF623F2A3ABB1B0071752F /* GlobalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalState.swift; sourceTree = "<group>"; };
+		2FF26A672A62FE7400CAEDBC /* StringFromLengthenPointer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFromLengthenPointer.swift; sourceTree = "<group>"; };
 		2FF46E4E2A61FF2B00848083 /* FileWriterWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileWriterWorker.swift; sourceTree = "<group>"; };
 		2FF46E512A61FFD900848083 /* BlockingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockingQueue.swift; sourceTree = "<group>"; };
 		2FF46E532A6206C900848083 /* PeerPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerPickerView.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 				2FCF62342A3A75CB0071752F /* StringHash.swift */,
 				2F2225E12A60FE17006656EF /* FileHandleEnsureLength.swift */,
 				2F63CDEA2A6209F600206F64 /* ViewWrapContent.swift */,
+				2FF26A672A62FE7400CAEDBC /* StringFromLengthenPointer.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 				2FCF62352A3A75CB0071752F /* StringHash.swift in Sources */,
 				2FF5EB422A3A4C00005198BF /* UIUtils.swift in Sources */,
 				2FF5EB402A3A3F36005198BF /* AirXService.swift in Sources */,
+				2FF26A682A62FE7400CAEDBC /* StringFromLengthenPointer.swift in Sources */,
 				2FF46E4F2A61FF2B00848083 /* FileWriterWorker.swift in Sources */,
 				FFB055D62A0EC17300351C21 /* FileNoticeView.swift in Sources */,
 				FFB055DA2A0F638500351C21 /* ThemeUtils.swift in Sources */,
