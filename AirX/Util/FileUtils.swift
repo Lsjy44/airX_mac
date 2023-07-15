@@ -47,7 +47,7 @@ class FileUtils {
             .first!
     }
     
-    public static func showFileInFilder(fullPath: String) {
+    public static func showInFinder(fullPath: String) {
         NSWorkspace.shared.selectFile(fullPath, inFileViewerRootedAtPath: "")
     }
 }

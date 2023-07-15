@@ -43,8 +43,8 @@ struct FileNoticeView: View {
     }
     
     func onOpenFolder() {
-        FileUtils.showFileInFilder(
-            fullPath: receivingFile.localSaveFullPath.absoluteString)
+        FileUtils.showInFinder(
+            fullPath: receivingFile.localSaveFullPath.path(percentEncoded: false))
     }
     
     var body: some View {
@@ -67,7 +67,7 @@ struct FileNoticeView: View {
                         Text(
                             truncatedFilename(
                                 FileUtils.getFileName(
-                                    fullPath: receivingFile.localSaveFullPath.path()),
+                                    fullPath: receivingFile.localSaveFullPath.path(percentEncoded: false)),
                                 maxLength: 10)
                         )
                             .font(.system(size: 20, weight: .bold))

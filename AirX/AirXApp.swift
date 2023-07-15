@@ -112,10 +112,10 @@ struct AirXApp: App {
             }
         }
         
-        if !FileManager.default.fileExists(atPath: savingFullPath.path()) {
-            guard FileManager.default.createFile(atPath: savingFullPath.path(), contents: nil) else {
+        if !FileManager.default.fileExists(atPath: savingFullPath.path(percentEncoded: false)) {
+            guard FileManager.default.createFile(atPath: savingFullPath.path(percentEncoded: false), contents: nil) else {
                 DispatchQueue.main.async {
-                    _ = UIUtils.alertBox(title: "Error", message: "Can't create file \(savingFullPath.path()) for writing.", primaryButtonText: "OK")
+                    _ = UIUtils.alertBox(title: "Error", message: "Can't create file \(savingFullPath.path(percentEncoded: false)) for writing.", primaryButtonText: "OK")
                 }
                 return
             }
@@ -123,7 +123,7 @@ struct AirXApp: App {
         
         guard let fileHandle = try? FileHandle(forWritingTo: savingFullPath) else {
             DispatchQueue.main.async {
-                _ = UIUtils.alertBox(title: "Error", message: "Can't open file \(savingFullPath.path()) for writing.", primaryButtonText: "OK")
+                _ = UIUtils.alertBox(title: "Error", message: "Can't open file \(savingFullPath.path(percentEncoded: false)) for writing.", primaryButtonText: "OK")
             }
             return
         }
@@ -290,8 +290,8 @@ struct AirXApp: App {
         }
         
         let peerPicker = PeerPickerWindow(callback: .constant({ peer in
-            debugPrint("Sending \(fileUrl.path())")
-            AirXService.trySendFile(host: peer.host, filePath: fileUrl.path())
+            debugPrint("Sending \(fileUrl.path(percentEncoded: false))")
+            AirXService.trySendFile(host: peer.host, filePath: fileUrl.path(percentEncoded: false))
         }))
         UIUtils.showNSWindow(peerPicker)
     }
