@@ -27,6 +27,7 @@ struct AirXApp: App {
         AirXService.subscribeToFileComing(id: "default", handler: onFileComing)
         AirXService.subscribeToFilePart(id: "default", handler: onFilePart)
         AirXService.subscribeToFileSendingProgress(id: "default", handler: onFileSendingProgress)
+        fileWriterWorker.start()
     }
     
     private func onFileSendingProgress(_ fileId: UInt8, _ progress: UInt64, _ total: UInt64, status: FileSendingStatus) {
@@ -111,9 +112,18 @@ struct AirXApp: App {
             }
         }
         
+        if !FileManager.default.fileExists(atPath: savingFullPath.path()) {
+            guard FileManager.default.createFile(atPath: savingFullPath.path(), contents: nil) else {
+                DispatchQueue.main.async {
+                    _ = UIUtils.alertBox(title: "Error", message: "Can't create file \(savingFullPath.path()) for writing.", primaryButtonText: "OK")
+                }
+                return
+            }
+        }
+        
         guard let fileHandle = try? FileHandle(forWritingTo: savingFullPath) else {
             DispatchQueue.main.async {
-                _ = UIUtils.alertBox(title: "Error", message: "Can't create file \(savingFullPath.path()) for writing.", primaryButtonText: "OK")
+                _ = UIUtils.alertBox(title: "Error", message: "Can't open file \(savingFullPath.path()) for writing.", primaryButtonText: "OK")
             }
             return
         }
