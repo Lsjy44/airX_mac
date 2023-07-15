@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ControlPanelView: View {
-    @State var peers: Array<String> = .init()
+    @State var peers: [Peer] = []
     @State var timer: Timer?
     @State private var selectedMode: ThemeMode = .light
     @ObservedObject var clipboardMonitor = TextNoticeViewModel.shared
@@ -57,14 +57,14 @@ struct ControlPanelView: View {
             
             Group {
                 Text("- Peer List -")
-                    .foregroundColor(selectedMode.theme.textColor)
-                
+
                 if peers.isEmpty {
                     Text("(Empty)").bold()
                 }
                 else {
-                    ForEach(peers, id: \.self) { peer in
-                        Text(peer).foregroundColor(selectedMode.theme.textColor)
+                    // Note: Items in foreach arrays should implement Identifiable
+                    ForEach(peers) { peer in
+                        Text(peer.description)
                     }
                 }
             }
@@ -101,7 +101,6 @@ struct ControlPanelView: View {
         .background(selectedMode.theme.gray)
     }
 }
-
 
 struct PanelView_Previews: PreviewProvider {
     static var previews: some View {

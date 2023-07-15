@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class AccountUtil {
+class AccountUtils {
     private static var subscribers = Dictionary<String, (Bool) -> Void>()
 
     public static func subscribeToAutomaticLoginResult(id: String, handler: @escaping (Bool) -> Void) {
@@ -76,5 +76,9 @@ class AccountUtil {
             return
         }
         notifySubscribers(didLoginSuccess: true)
+    }
+    
+    public static func blockUser(peer: Peer) {
+        // TODO: 
     }
 }

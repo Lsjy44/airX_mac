@@ -11,8 +11,12 @@ import SwiftUI
 struct AboutView: View {
     var body: some View {
         VStack {
-            Text("AirX - Text/File Sync Tool").bold()
-            Text("macOS Frontend")
+            VStack(alignment: .leading) {
+                Text("AirX - Text/File Sync Tool")
+                    .font(.system(size: 18))
+                    .bold()
+                Text("macOS Frontend")
+            }
             
             Divider()
             
@@ -29,6 +33,7 @@ struct AboutView: View {
                     Text("libairx").bold()
                     VStack(alignment: .leading) {
                         Text(verbatim: "Version \(airx_version())")
+                        Text(verbatim: "\(AirXService.readVersionString())")
                     }
                 }
             }
@@ -41,7 +46,6 @@ struct AboutView: View {
         .frame(width: 305, height: 245)
     }
 }
-
 
 struct AboutView_Previews: PreviewProvider {
     static var previews: some View {

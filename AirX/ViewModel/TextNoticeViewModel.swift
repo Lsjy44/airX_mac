@@ -12,8 +12,8 @@ import AppKit
 
 class TextNoticeViewModel: ObservableObject {
     @Published var showTextNotice: Bool = false
-    @Published var receivedText: String = ""
-    @Published var from: String = ""
+    @Published var receivedText: String = "你好"
+    @Published var from: Peer = .sample
     
     static let shared = TextNoticeViewModel()
 }

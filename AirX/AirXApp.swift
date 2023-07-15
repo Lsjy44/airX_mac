@@ -7,55 +7,138 @@
 
 import SwiftUI
 
-enum WindowIds: String {
-    case signIn
-    case controlPanel
-    case about
-    case textNotice
-    
-    var windowTitle: String {
-        switch self {
-        case .signIn:
-            return "Sign In"
-            
-        case .controlPanel:
-            return "Developer Control Panel"
-            
-        case .about:
-            return "About AirX"
-            
-        case .textNotice:
-            return "Text Notice"
-        }
-    }
-}
-
 @main
 struct AirXApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
     
-    // TODO: \.  ?
     @Environment(\.openWindow)
     var openWindow
     
     @ObservedObject
     var globalState = GlobalState.shared
     
+    private let fileWriterWorker = FileWriterWorker()
+
+    
     private func viewWillAppear() {
-        AccountUtil.subscribeToAutomaticLoginResult(id: "default", handler: onAutomaticSignInResult)
+        AccountUtils.subscribeToAutomaticLoginResult(id: "default", handler: onAutomaticSignInResult)
         AirXService.subscribeToTextChange(id: "default", handler: onTextReceived)
+        AirXService.subscribeToFileComing(id: "default", handler: onFileComing)
+        AirXService.subscribeToFilePart(id: "default", handler: onFilePart)
+        AirXService.subscribeToFileSendingProgress(id: "default", handler: onFileSendingProgress)
     }
     
-    private func onTextReceived(_ text: String, _ from: String) {
+    private func onFileSendingProgress(_ fileId: UInt8, _ progress: UInt64, _ total: UInt64, status: FileSendingStatus) {
+        // TODO:
+        print("fileid=\(fileId), progress=\(progress)/\(total)")
+    }
+    
+    /// Return true to interrupt the connection.
+    private func onFilePart(_ fileId: UInt8, _ offset: UInt64, _ length: UInt64, _ data: Data) -> Bool {
+        guard let file = globalState.receiveFiles[fileId] else {
+            debugPrint("Unexpected file received.")
+            return true
+        }
+        
+        guard file.status != .cancelledBySender && file.status != .cancelledByReceiver else {
+            debugPrint("File cancelled.")
+            return true
+        }
+        
+        fileWriterWorker.addWorkload(
+            FileWriterWorker.FilePartWorkload(
+                fileId: fileId, offset: offset, length: length, data: data))
+        return false
+    }
+    
+    private func onFileComing(_ fileSize: UInt64, _ remoteFullPath: String, _ peer: Peer) {
+        let fileName = FileUtils.getFileName(fullPath: remoteFullPath)
+        DispatchQueue.main.async {
+            let selection = UIUtils.alertBox(
+                title: "Received File",
+                message: "\(peer.description) is sending the file \(fileName) (\(fileSize) Bytes) to you!",
+                primaryButtonText: "Accept",
+                secondaryButtonText: "Explicitly Decline",
+                thirdButtonText: "Ignore"
+            )
+            
+            guard selection != .alertThirdButtonReturn else {
+                return
+            }
+            
+            let accept = selection == .alertFirstButtonReturn
+            let fileId = FileUtils.getNextFileId()
+            
+            if accept {
+                prepareForReceivingFile(fileId, fileSize, remoteFullPath, peer)
+            }
+            
+            AirXService.respondToFile(
+                host: peer.host, fileId: fileId, fileSize: fileSize, remoteFullPath: remoteFullPath, accept: accept)
+        }
+    }
+    
+    private func onTextReceived(_ text: String, _ from: Peer) {
         // These codes must be delayed - they can't run directly during a view update,
         // because `onTextReceived` is called from another thread.
         DispatchQueue.main.async {
             TextNoticeViewModel.shared.receivedText = text
             TextNoticeViewModel.shared.from = from
             TextNoticeViewModel.shared.showTextNotice = true
-            UIUtil.createWindow(openWindow, windowId: .textNotice)
+            UIUtils.createWindow(openWindow, windowId: .textNotice)
         }
+    }
+    
+    // ===========================================================
+    
+    private func prepareForReceivingFile(_ fileId: UInt8, _ fileSize: UInt64, _ remoteFullPath: String, _ from: Peer) {
+        let savingDirectory = FileUtils.getDownloadDirectoryUrl()
+            .appending(path: "AirXFiles", directoryHint: .isDirectory)
+        let fileName = FileUtils.getFileName(fullPath: remoteFullPath)
+        let savingFullPath = savingDirectory
+            .appending(path: fileName)
+        let savingDirectoryPath = savingDirectory.path(percentEncoded: false)
+        
+        if !FileManager.default.fileExists(
+            atPath: savingDirectoryPath) {
+            guard let _ = try? FileManager.default.createDirectory(
+                atPath: savingDirectoryPath,
+                withIntermediateDirectories: true
+            ) else {
+                _ = UIUtils.alertBox(title: "Error", message: "Can't create output directory \(savingDirectoryPath)", primaryButtonText: "OK")
+                return
+            }
+        }
+        
+        guard let fileHandle = try? FileHandle(forWritingTo: savingFullPath) else {
+            DispatchQueue.main.async {
+                _ = UIUtils.alertBox(title: "Error", message: "Can't create file \(savingFullPath.path()) for writing.", primaryButtonText: "OK")
+            }
+            return
+        }
+        
+        guard fileHandle.ensureSize(fileSize) else {
+            DispatchQueue.main.async {
+                _ = UIUtils.alertBox(title: "Error", message: "Failed to ensure file size.", primaryButtonText: "OK")
+            }
+            return
+        }
+        
+        let receiveFile = ReceiveFile(
+            remoteFullPath: remoteFullPath,
+            fileHandle: fileHandle,
+            localSaveFullPath: savingFullPath,
+            totalSize: fileSize,
+            fileId: fileId,
+            from: from,
+            progress: 0,
+            status: .accepted
+        )
+
+        GlobalState.shared.receiveFiles[fileId] = receiveFile
+        let window = FileNoticeWindow(fileId: fileId)
+        UIUtils.showNSWindow(window)
     }
     
     private func onAutomaticSignInResult(didLoginSuccess: Bool) {
@@ -87,9 +170,14 @@ struct AirXApp: App {
             Button("Sign \(globalState.isSignedIn ? "Out" : "In")", action: onToggleSignInOutMenuItemClicked)
             
             Divider()
+            
+            Button("Send File", action: onSendFileMenuItemClicked)
+            
+            Divider()
 
             Button("About AirX", action: onAboutMenuItemClicked)
                 .keyboardShortcut("A")
+
             Button("Exit", action: onExitApplicationMenuItemClicked)
                 .keyboardShortcut("E")
         }
@@ -134,7 +222,7 @@ struct AirXApp: App {
             .defaultSize(width: 305, height: 273)
         
         Window(WindowIds.textNotice.windowTitle, id: WindowIds.textNotice.rawValue) {
-            TextNoticeView(theme: .constant(DarkMode()))
+            TextNoticeView(theme: .constant(LightMode()))
         }.windowResizability(.contentSize)
             .windowStyle(.hiddenTitleBar)
             .defaultPosition(.bottomTrailing)
@@ -151,20 +239,20 @@ struct AirXApp: App {
     }
     
     func onAboutMenuItemClicked() {
-        UIUtil.createWindow(openWindow, windowId: .about)
+        UIUtils.createWindow(openWindow, windowId: .about)
     }
     
     func onToggleSignInOutMenuItemClicked() {
         if globalState.isSignedIn {
             globalState.isSignedIn = false
-            AccountUtil.clearSavedUserInfoAndSignOut()
+            AccountUtils.clearSavedUserInfoAndSignOut()
             return
         }
-        UIUtil.createWindow(openWindow, windowId: .signIn)
+        UIUtils.createWindow(openWindow, windowId: .signIn)
     }
     
     func onOpenControlPanelMenuItemClicked() {
-        UIUtil.createWindow(openWindow, windowId: .controlPanel)
+        UIUtils.createWindow(openWindow, windowId: .controlPanel)
     }
     
     func onExitApplicationMenuItemClicked() {
@@ -180,7 +268,52 @@ struct AirXApp: App {
         }
     }
     
+    func onSendFileMenuItemClicked() {
+        let peers = AirXService.readCurrentPeers()
+        guard !peers.isEmpty else {
+            _ = UIUtils.alertBox(title: "Error", message: "No peers available.", primaryButtonText: "OK")
+            return
+        }
+        
+        guard let fileUrl = UIUtils.pickFile() else {
+            return
+        }
+        
+        let peerPicker = PeerPickerWindow(callback: .constant({ peer in
+            debugPrint("Sending \(fileUrl.path())")
+            AirXService.trySendFile(host: peer.host, filePath: fileUrl.path())
+        }))
+        UIUtils.showNSWindow(peerPicker)
+    }
+    
     func onForceExitMenuItemClicked() {
         exit(EXIT_FAILURE)
+    }
+}
+
+enum WindowIds: String {
+    case signIn
+    case controlPanel
+    case about
+    case textNotice
+    case fileNotice
+    
+    var windowTitle: String {
+        switch self {
+        case .signIn:
+            return "Sign In"
+            
+        case .controlPanel:
+            return "Developer Control Panel"
+            
+        case .about:
+            return "About AirX"
+            
+        case .textNotice:
+            return "Text Notice"
+            
+        case .fileNotice:
+            return "File Notice"
+        }
     }
 }

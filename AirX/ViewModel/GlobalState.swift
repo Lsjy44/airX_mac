@@ -11,6 +11,7 @@ class GlobalState: ObservableObject {
     @Published var isServiceOnline: Bool = false
     @Published var isSignedIn: Bool = false
     @Published var isApplicationExiting: Bool = false
+    @Published var receiveFiles: Dictionary<UInt8, ReceiveFile> = [255: .sample];
     
     static let shared = GlobalState()
 }

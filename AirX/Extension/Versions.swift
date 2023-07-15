@@ -20,4 +20,3 @@ extension Bundle {
     
     fileprivate func getInfo(_ str: String) -> String { infoDictionary?[str] as? String ?? "⚠️" }
 }
-

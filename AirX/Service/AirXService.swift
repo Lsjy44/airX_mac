@@ -12,37 +12,34 @@ import AppKit
 private var interrupt = false
 private var pasteboard = NSPasteboard.general
 private var lastIncomingString = ""
-private var textChangeSubscribers = Dictionary<String, (String, String) -> Void>()
-private var fileSendingProgressSubscribers = Dictionary<String, (UInt8, UInt64, UInt64, UInt8) -> Void>();
-private var fileComingSubscribers = Dictionary<String, (UInt64, String, String) -> Void>();
-private var filePartSubscribers = Dictionary<String, (UInt8, UInt32, UInt32, Data) -> Void>();
+private var textChangeSubscribers = Dictionary<String, (String, Peer) -> Void>()
+private var fileSendingProgressSubscribers = Dictionary<String, (UInt8, UInt64, UInt64, FileSendingStatus) -> Void>();
+private var fileComingSubscribers = Dictionary<String, (UInt64, String, Peer) -> Void>();
+private var filePartSubscribers = Dictionary<String, (UInt8, UInt64, UInt64, Data) -> Bool>();
 
 private func shouldInterrupt() -> Bool {
     return interrupt
 }
 
-/*
- void (*text_callback_c)(const char*, uint32_t, const char*, uint32_t),
- void (*file_coming_callback_c)(uint64_t, const char*, uint32_t, const char*, uint32_t),
- void (*file_sending_callback_c)(uint8_t, uint64_t, uint64_t, uint8_t),
- void (*file_part_callback_c)(uint8_t, uint32_t, uint32_t, const char*),
- */
-
+/// Return true to interrupt the transmission.
 private func onFilePart(
     fileId: UInt8,
-    offset: UInt32,
-    length: UInt32,
-    data: UnsafePointer<CChar>?
-) {
+    offset: UInt64,
+    length: UInt64,
+    data: UnsafePointer<UInt8>?
+) -> Bool {
     guard let data else {
-        return
+        return false
     }
     
     let dataManaged = Data(bytes: data, count: Int(length))
 
     for subscriber in filePartSubscribers.values {
-        subscriber(fileId, offset, length, dataManaged)
+        if subscriber(fileId, offset, length, dataManaged) {
+            return true
+        }
     }
+    return false
 }
 
 private func onFileSendingProgress(
@@ -52,8 +49,7 @@ private func onFileSendingProgress(
     status: UInt8
 ) {
     for subscriber in fileSendingProgressSubscribers.values {
-        // TODO: better status repr
-        subscriber(fileId, progress, total, status)
+        subscriber(fileId, progress, total, .init(rawValue: status) ?? .requested)
     }
 }
 
@@ -70,9 +66,15 @@ private func onFileComing(
     
     let fileName = String(cString: fileNameStringPointer)
     let sourceIpAddressString = String(cString: sourceIpAddressStringPointer)
+    let peer = Peer.parse(sourceIpAddressString)
+    
+    guard let peer else {
+        print("Peer parsing failed.")
+        return
+    }
     
     for subscriber in fileComingSubscribers.values {
-        subscriber(fileSize, fileName, sourceIpAddressString)
+        subscriber(fileSize, fileName, peer)
     }
 }
 
@@ -88,7 +90,12 @@ private func onTextReceived(
     
     let incomingString = String(cString: incomingStringPointer)
     let sourceIpAddressString = String(cString: sourceIpAddressStringPointer)
+    let peer = Peer.parse(sourceIpAddressString)
     
+    guard let peer else {
+        print("Peer parsing failed.")
+        return
+    }
     pasteboard.declareTypes([.string], owner: nil)
     
     // Copy string to pasteboard.
@@ -98,7 +105,7 @@ private func onTextReceived(
     }
     
     for subscriber in textChangeSubscribers.values {
-        subscriber(incomingString, sourceIpAddressString)
+        subscriber(incomingString, peer)
     }
 }
 
@@ -122,8 +129,20 @@ class AirXService {
     public static let groupIdentity                = Defaults.int(.groupIdentity)
     public static let host                         = "0.0.0.0"
 
-    public static func subscribeToTextChange(id: String, handler: @escaping (String, String) -> Void) {
+    public static func subscribeToTextChange(id: String, handler: @escaping (String, Peer) -> Void) {
         textChangeSubscribers[id] = handler
+    }
+    
+    public static func subscribeToFileSendingProgress(id: String, handler: @escaping (UInt8, UInt64, UInt64, FileSendingStatus) -> Void) {
+        fileSendingProgressSubscribers[id] = handler
+    }
+    
+    public static func subscribeToFilePart(id: String, handler: @escaping (UInt8, UInt64, UInt64, Data) -> Bool) {
+        filePartSubscribers[id] = handler
+    }
+    
+    public static func subscribeToFileComing(id: String, handler: @escaping (UInt64, String, Peer) -> Void) {
+        fileComingSubscribers[id] = handler
     }
     
     public static func startAsync() {
@@ -177,20 +196,61 @@ class AirXService {
         GlobalState.shared.isServiceOnline = false
     }
     
-    public static func readCurrentPeers() -> Array<String> {
+    public static func readCurrentPeers() -> [Peer] {
         let buffer = UnsafeMutablePointer<CChar>
             .allocate(capacity: 4096)
         let len = Int(airx_get_peers(airxPointer, buffer))
 
         // 简单封个口
-        buffer.advanced(by: len).assign(repeating: 0, count: 1)
+        buffer.advanced(by: len).update(repeating: 0, count: 1)
         
         // Decode and free.
-        let ret = String(cString: buffer)
-        buffer.deallocate()
-
-        return ret.split(separator: .init(unicodeScalarLiteral: ","))
-            .map({ substring in String(substring) })
+        defer { buffer.deallocate() }
+        return String(cString: buffer)
+            .split(separator: .init(unicodeScalarLiteral: ","))
+            .map({ substring in Peer.parse(String(substring))! })
+    }
+    
+    public static func trySendFile(host: String, filePath: String) {
+        let filePathUrlDecoded = filePath.removingPercentEncoding ?? filePath
+        
+        let hostBuffer = host.toBuffer()
+        let pathBuffer = filePathUrlDecoded.toBuffer()
+        
+        airx_try_send_file(
+            airxPointer!,
+            hostBuffer,
+            host.utf8Size(),
+            pathBuffer,
+            filePathUrlDecoded.utf8Size()
+        )
+    }
+    
+    public static func respondToFile(host: String, fileId: UInt8, fileSize: UInt64, remoteFullPath: String, accept: Bool) {
+        let hostBuffer = host.toBuffer()
+        let remoteFullPathBuffer = remoteFullPath.toBuffer()
+        
+        airx_respond_to_file(
+            airxPointer!,
+            hostBuffer,
+            host.utf8Size(),
+            fileId,
+            fileSize,
+            remoteFullPathBuffer,
+            remoteFullPath.utf8Size(),
+            accept
+        )
+    }
+    
+    public static func readVersionString() -> String {
+        let buffer = UnsafeMutablePointer<CChar>
+            .allocate(capacity: 128)
+        let len = Int(airx_version_string(buffer))
+        
+        // Ensure zero terminated
+        buffer.advanced(by: len).update(repeating: 0, count: 1)
+        defer { buffer.deallocate() }
+        return String(cString: buffer)
     }
     
     private static func startMonitoringClipboard() {
