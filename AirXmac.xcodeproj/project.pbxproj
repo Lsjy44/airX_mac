@@ -25,6 +25,7 @@
 		2F2225E22A60FE17006656EF /* FileHandleEnsureLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2225E12A60FE17006656EF /* FileHandleEnsureLength.swift */; };
 		2F2225E52A6100E1006656EF /* FileNoticeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2225E42A6100E1006656EF /* FileNoticeWindow.swift */; };
 		2F2AF3282A4C573B008B291F /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2AF3272A4C573B008B291F /* Peer.swift */; };
+		2F49F0A92A6581E800EFA15F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2F49F0A82A6581E800EFA15F /* README.md */; };
 		2F63CDEB2A6209F600206F64 /* ViewWrapContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F63CDEA2A6209F600206F64 /* ViewWrapContent.swift */; };
 		2F63CDED2A62118000206F64 /* PeerPickerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F63CDEC2A62118000206F64 /* PeerPickerWindow.swift */; };
 		2FCF62312A3A6EB70071752F /* AirXCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF62302A3A6EB70071752F /* AirXCloud.swift */; };
@@ -89,7 +90,7 @@
 		162699650082236BCD57D529 /* Pods_AirXmac_AirXmacUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirXmac_AirXmacUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F03CA642A39F10F00E9D93F /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		2F03CA662A39F24700E9D93F /* CredentialType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialType.swift; sourceTree = "<group>"; };
-		2F0615B8298621B100B151F7 /* SwiftUIPractice-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftUIPractice-Bridging-Header.h"; sourceTree = "<group>"; };
+		2F0615B8298621B100B151F7 /* AirXmac-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AirXmac-Bridging-Header.h"; sourceTree = "<group>"; };
 		2F0615B9298621B200B151F7 /* AirXWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirXWrapper.m; sourceTree = "<group>"; };
 		2F0615BB2986230300B151F7 /* AirXBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirXBridge.h; sourceTree = "<group>"; };
 		2F0615C52986322600B151F7 /* UnsafeString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsafeString.swift; sourceTree = "<group>"; };
@@ -108,6 +109,7 @@
 		2F2225E12A60FE17006656EF /* FileHandleEnsureLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandleEnsureLength.swift; sourceTree = "<group>"; };
 		2F2225E42A6100E1006656EF /* FileNoticeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNoticeWindow.swift; sourceTree = "<group>"; };
 		2F2AF3272A4C573B008B291F /* Peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
+		2F49F0A82A6581E800EFA15F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2F63CDEA2A6209F600206F64 /* ViewWrapContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWrapContent.swift; sourceTree = "<group>"; };
 		2F63CDEC2A62118000206F64 /* PeerPickerWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerPickerWindow.swift; sourceTree = "<group>"; };
 		2FCF62302A3A6EB70071752F /* AirXCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirXCloud.swift; sourceTree = "<group>"; };
@@ -200,7 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				2F0615B9298621B200B151F7 /* AirXWrapper.m */,
-				2F0615B8298621B100B151F7 /* SwiftUIPractice-Bridging-Header.h */,
+				2F0615B8298621B100B151F7 /* AirXmac-Bridging-Header.h */,
 				2F0615BB2986230300B151F7 /* AirXBridge.h */,
 				2F0615C52986322600B151F7 /* UnsafeString.swift */,
 			);
@@ -221,6 +223,7 @@
 		2F069C242985B4DB009DD1E6 = {
 			isa = PBXGroup;
 			children = (
+				2F49F0A82A6581E800EFA15F /* README.md */,
 				2FCF62362A3A7DBB0071752F /* AirXmac-Info.plist */,
 				2F069C2F2985B4DB009DD1E6 /* AirX */,
 				2F069C412985B4DC009DD1E6 /* AirXmacTests */,
@@ -489,6 +492,7 @@
 			files = (
 				2F069C382985B4DC009DD1E6 /* Preview Assets.xcassets in Resources */,
 				2F069C352985B4DC009DD1E6 /* Assets.xcassets in Resources */,
+				2F49F0A92A6581E800EFA15F /* README.md in Resources */,
 				2FCF62372A3A7DBB0071752F /* AirXmac-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

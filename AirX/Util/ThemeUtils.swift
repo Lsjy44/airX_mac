@@ -34,3 +34,4 @@ struct DarkMode: Theme {
     let buttonText = Color(red: 27/255, green: 78/255, blue: 94/255)
     let textColor = Color(red: 188/255, green: 188/255, blue: 188/255)
 }
+ 

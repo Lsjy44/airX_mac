@@ -1,45 +1,62 @@
-## 新增
+## 目录结构
 
-[+] 最新改动放到github了
+所有代码在AirX目录下
 
-[+] 主界面菜单化，常态没有窗口浮在屏幕上，而是类似 ![](Documentation/nb.png) 一样在状态栏有个图标，点了有菜单，如下图。
+- AirXApp.swift: 程序的入口点，不过没有main函数。这个文件定义了菜单、窗口、菜单点了后的行为、和所有AirX的回调函数
 
-![](Documentation/menu.png)
+- AppDelegate.swift: 生命周期的回调函数，内含初始化AirX、初始化谷歌登录、防止重复运行
 
-这菜单可费老劲了
+- Bridge: 这个目录包含AirXBridge.h，用于让swift去调用libairx
+    - AirXWrapper.m: 没有用到
+    - AirXmac-Bridging-Header.h: 没有用到
+    - AirXBridge.h: 从libairx那里搞来的自动生成的头文件
+    - UnsafeString.swift: 用于从原始指针和Swift的String之间相互转换
 
-包含
+- Model: 这个目录包含数据模型
+    - Peer.swift: 定义Peer，Peer是指局域网内的其他AirX用户
+    - ReceiveFile.swift: 定义正在接受着的文件
 
-- 开启和关闭服务
-- 打开控制面板（也就是初版的主界面，被我作为控制面板了）
-- 显示当前登入用户的UID
-- 登入和登出，登入会弹出你设计的登入界面，登出会清除所有用户信息
-- 关于
-- 退出软件
+- ViewModel: 定义全局状态(State)，所谓状态是指这样一类数据，我们希望每当它们发生改变，都能及时体现在UI上。例如进度条就是很好的例子
+    - GlobalState.swift: 包含AirX运行状态
+    - TextNoticeViewModel.swift: 包含收到的最新文本
 
-[+] 剪贴板监控功能直接并入了`AirXService`，因为二者关系太密切，没必要分开。
+- Enum: 这个目录定义了所有枚举类
+    - CredentialType.swift: 密码的存储类型（明文？token？还是Google token）
+    - ThemeMode.swift: 定义两种主题模式(Light/Dark)
+    - FileSendingStatus.swift: 和libairx对应的1-8的数字代表不同的文件传输状态
 
-[+] 临时有了一个图标 ![](Documentation/64.png)，有了好看的版本之后再换。
+- Window: 这个目录定义了所有窗口。注意只是定义窗口，而窗口的实际内容则在View目录里
+    - FileNoticeWindow.swift: 来新文件的窗口的大小、位置、使用哪个View
+    - PeerPickerWindow.swift: 发文件时选Peer的窗口的大小、位置、使用哪个View
 
-[+] 部分接入了谷歌登录（走通了点击SignIn按钮 -> 弹出网页 -> 登录完事儿后进入回调函数、得到来自谷歌的token），后续这个token配合后端来使用。
+- View: 这个目录定义了窗口们显示的实际内容。可以发现他和Window的数量是不一致的，因为有的Window定义在目录里，是文件形式，而有的Window定义在AirXApp.swift中
+    - FileNoticeView.swift: 来新文件的窗口内容
+    - TextNoticeView.swift: 来新文本的窗口内容
+    - ControlPanelView.swift: 控制面板窗口内容。下一步我们要把它改成设置页面
+    - LoginView.swift: 登录页面
+    - AboutView.swift: 关于的页面
+    - PeerPickerView.swift:  选Peer页面
 
-[+] 收到文本后，能正确在屏幕角落弹出`Notice`窗口了。
+- Data: 定义了基本数据结构
+    - BlockingQueue.swift: 阻塞队列
 
-[+] 实现了较为成熟的登录流程，自动登录AirX账号，登录一次后记住token，后续启动优先尝试续期token，若成功则直接自动登录。每次启动都会自动弹出Sign In窗口，除非自动登录成功则不弹。本地只保存token不保存密码。
+- Worker: 定义后台工作的线程
+    - FileWriterWorker.swift: 文件写入的worker，内含一个阻塞队列，只要队列里有了新的文件写入任务(哪个文件、写在哪里、写什么)就立刻执行
 
-[+] 工程重构了一遍，模块之间基本解耦，一些逻辑进行了升级（比如UserDefaults现在封装成类了，读写配置不再需要手写字符串，直接点出来），从仅仅能跑变为差不多能用。支持弹出和维护多个窗口，管理窗口大小什么的也都实现了。
+- Service: 定义AirX服务相关的函数
+    - AirXService.swift: 对AirXBridge的原版函数进行封装，自动完成字符串到原始指针之间的转换、自动管理内存，方便调用libairx
+    - AirXCloud.swift: 所有的airx网络调用，用于和Airx服务器进行交流
 
-[+] 更新了libairx，现在`OnTextReceived`函数的回调多了两个参数，分别是来源IP地址字符串及其长度。
+- Util: 工具类都在这里
+    - ThemeUtils.swift: 定义主题色的颜色值
+    - Defaults.swift: 对UserDefaults的封装，把用户设置保存在本地，实现对用户设置的记忆
+    - UIUtils.swift: 对UI操作的封装，比如方便的打开选择文件窗口等等
+    - AccountUtils.swift: 对airx账户的操作，比如登出、管理黑名单等等
+    - FileUtils.swift: 对文件的操作，比如方便的转换win/mac格式的目录、获取“下载”文件夹的实际目录等等
 
-
-## 可以和李成说说遇到的困难
-
-对SwiftUI学习不够深入，基本上属于不看文档直接开干，因此吃了非常非常多的坑，往往是看似简单的事情，却需要花费大量时间去解决：
-
-- 菜单图标坑：这应该是折磨时间最长的一个了，`MenuBarExtra`有几个官方没说的隐藏缺点，包括只能显示特定几种菜单项、生命周期函数全都无效（但是有）、若优先加载后会阻止窗口自动弹出等，网上相关资料也非常少。
-- 状态共享坑：我折腾了一下午，最后chatgpt告诉我`ObservedObject`可以解决我所有的问题，这才脱离苦海。
-- 多窗口坑：弹出窗口、设置窗口大小和位置、主动关闭窗口，以上几点操作，需要各不相同的特殊方法来做到。
-- 防止多开：防止程序同时多开好几个，是很常见的需求了，谷歌居然一个相关结果都没有，震惊ᓫ(°⌑°)ǃ最后利用最最朴素的判断进程的方法解决了。
-- 线程中更新UI坑：不能算是坑，所有语言都这样的，简单解决，但是这种错误有时候是概率发作，大意的话一时发现不了。
-
-苹果的文档写的实在是比较简略，所以苦读文档倒也不如自己摸索。
+- Extension: 对swift既有的类的扩展
+    - Versions.swift: 对Bundle类赋予直接读取本app的版本号的能力
+    - StringHash.swift: 对String类赋予获得当前String内容的sha256哈希的能力
+    - FileHandleEnsureLength: 为FileHandle类赋予提前占用好N字节空间方便写入的能力
+    - ViewWrapContent: 为SwiftUI中的View提供WrapContent（即，尽可能小，小到刚好足以包裹自己的所有内容）的能力
+    - StringFromLengthenPointer: 为String类提供从原始指针复制内容、并控制字节数的能力
