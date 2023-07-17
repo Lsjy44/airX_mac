@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 参见 `README.md`
 extension String {
     public init?(cString: UnsafePointer<CChar>?, length: Int) {
         guard let cString else {

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 参见 `README.md`
 extension Bundle {
     public var appName: String           { getInfo("CFBundleName")  }
     public var displayName: String       { getInfo("CFBundleDisplayName")}

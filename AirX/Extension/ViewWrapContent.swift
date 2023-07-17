@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// 参见 `README.md`
 extension View {
     func wrapContent() -> some View {
         return frame(

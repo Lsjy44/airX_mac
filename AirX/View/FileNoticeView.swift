@@ -7,15 +7,23 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
+/// 正式来到SwiftUI！
+/// 新文件窗口
 struct FileNoticeView: View {
+    /// 要求使用`presentationMode`能力
+    /// 其实就是用来主动关闭当前窗口的...
     @Environment(\.presentationMode) var presentationMode
 
+    /// 暂时主题锁定为亮色
     @State private var theme: Theme = LightMode()
+    
+    /// 本View绑定着的对应的`ReceivingFile`
     @ObservedObject var receivingFile: ReceiveFile
     
+    /// 加入黑名单按钮
     func onBlock() {
+        /// 确认弹窗
         guard UIUtils.alertBox(
             title: "Stop",
             message: "Are you sure to block \(receivingFile.from.description)?",
@@ -25,10 +33,13 @@ struct FileNoticeView: View {
             return
         }
         
+        /// 进行加黑名单操作
         AccountUtils.blockUser(peer: receivingFile.from)
     }
     
+    /// 停止传输
     func onStop() {
+        /// 确认弹窗
         guard UIUtils.alertBox(
             title: "Stop",
             message: "Are you sure to stop receiving the file?",
@@ -38,19 +49,26 @@ struct FileNoticeView: View {
             return
         }
 
+        /// 更新文件状态为已经停止
         receivingFile.status = .cancelledByReceiver
+        
+        /// 关闭本窗口，写法有点怪，网上查的最好办法
         presentationMode.wrappedValue.dismiss()
     }
     
+    /// 打开所在文件夹
     func onOpenFolder() {
         FileUtils.showInFinder(
             fullPath: receivingFile.localSaveFullPath.path(percentEncoded: false))
     }
     
+    /// 界面布局
     var body: some View {
+        /// 计算出传输进度百分比
         let progressPercent = Double(receivingFile.progress) / Double(receivingFile.totalSize)
         
         ZStack {
+            // 背景
             VStack (spacing: 0) {
                 theme.gray.frame(height: 126)
                 theme.blue.frame(height: 42)
@@ -64,6 +82,7 @@ struct FileNoticeView: View {
                     Spacer().frame(width: 27)
                     
                     HStack {
+                        // 文件名
                         Text(
                             truncatedFilename(
                                 FileUtils.getFileName(
@@ -74,6 +93,7 @@ struct FileNoticeView: View {
                             .foregroundColor(theme.textColor)
                     }
                     
+                    // 大小
                     HStack {
                         Text(receivingFile.sizeRepresentation)
                             .font(.system(size: 16))
@@ -83,6 +103,7 @@ struct FileNoticeView: View {
                     
                     Spacer().frame(width: 21)
                     
+                    // 来自
                     HStack {
                         Text("From \(receivingFile.from.description)")
                             .font(.system(size: 13))
@@ -112,6 +133,7 @@ struct FileNoticeView: View {
                     Spacer()
                     
                     if progressPercent == 1 {
+                        // 传输完成，显示Open Folder
                         Button("OPEN FOLDER", action: onOpenFolder)
                             .buttonStyle(.plain)
                             .font(.system(size: 13, weight: .bold))
@@ -120,6 +142,7 @@ struct FileNoticeView: View {
                             .focusable(false)
                     }
                     else {
+                        // 传输没完成，显示Stop
                         Button("STOP", action: onStop)
                             .buttonStyle(.plain)
                             .font(.system(size: 13, weight: .bold))
@@ -145,6 +168,7 @@ struct FileNoticeView: View {
     } // some View
 }
 
+/// 能够给进度条上色的自定义进度条
 struct ColoredProgressViewStyle: ProgressViewStyle {
     var color: Color
     

@@ -8,17 +8,29 @@
 import Foundation
 import SwiftUI
 
+/// 新文本窗口
 struct TextNoticeView: View {
+    /// 绑定文本窗口的状态
     @ObservedObject var viewModel = TextNoticeViewModel.shared
+    
+    /// 绑定外界传进来的，该用哪款主题
     @Binding var theme: Theme
     
+    /// 笔记：
+    /// `@State` 指本类内部的状态，其值的改变会自动触发更新UI
+    /// `@Published` 也是状态，但不是自己用，是给别的类用
+    /// `@ObservableObject` 包含了`@Published`的类，它就是一个`@ObservableObject`
+    /// `@Binding` 指来自外部的`@State`
+    
+    /// 原来这里的拉黑功能还没做
     func onBlock() {
         
     }
     
     var body: some View {
         ZStack {
-            VStack (spacing: 0){
+            /// 背景
+            VStack (spacing: 0) {
                 theme.gray.frame(height: 126)
                 theme.blue.frame(height: 42)
             }
@@ -28,6 +40,7 @@ struct TextNoticeView: View {
                 VStack(alignment: .leading) {
                     Spacer().frame(height: 27)
                     
+                    /// 文本内容
                     HStack {
                         Text(viewModel.receivedText)
                             .font(.system(size: 20, weight: .bold))
@@ -37,6 +50,7 @@ struct TextNoticeView: View {
                     
                     Spacer()
                     
+                    /// 来自
                     HStack {
                         Text("From \(viewModel.from.description)")
                             .font(.system(size: 13))

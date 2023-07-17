@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// 关于页面
 struct AboutView: View {
     var body: some View {
         VStack {

@@ -8,12 +8,15 @@
 import Foundation
 import SwiftUI
 
-
+/// 选人页面
 struct PeerPickerView: View {
+    /// 用于关闭当前窗口
     @Environment(\.presentationMode) var presentationMode
     
+    /// 选完人的回调函数
     @Binding var callback: (Peer) -> Void
     
+    /// 所有Peers
     let peers = AirXService.readCurrentPeers()
 
     var body: some View {
@@ -24,6 +27,7 @@ struct PeerPickerView: View {
 
             ForEach(peers) { peer in
                 PeerPickerRow(peer: peer) {
+                    /// 选择Peer后，先关闭自身窗口，然而调用回调函数
                     presentationMode.wrappedValue.dismiss()
                     callback(peer)
                 }
@@ -33,6 +37,7 @@ struct PeerPickerView: View {
     }
 }
 
+/// 每个待选的Peer是列表中的一行
 struct PeerPickerRow: View {
     var peer: Peer
     var onClick: () -> Void
