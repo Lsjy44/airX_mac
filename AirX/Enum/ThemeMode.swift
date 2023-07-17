@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+/// 主题模式
 enum ThemeMode: String, CaseIterable {
    case light = "Light Mode"
    case dark = "Dark Mode"
@@ -21,4 +21,3 @@ enum ThemeMode: String, CaseIterable {
        }
    }
 }
-

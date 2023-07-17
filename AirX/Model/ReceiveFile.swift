@@ -7,16 +7,20 @@
 
 import Foundation
 
+/// 正接收中的文件的数据模型
+/// `ObservableObject`首次亮相，配合`@Published`，让使用这个值的SwiftUI的控件能够及时感知到值的变化、从而更新UI
 class ReceiveFile: ObservableObject {
-    @Published var remoteFullPath: String
-    @Published var fileHandle: FileHandle
-    @Published var localSaveFullPath: URL
-    @Published var totalSize: UInt64
-    @Published var fileId: UInt8
-    @Published var from: Peer
-    @Published var progress: UInt64
-    @Published var status: FileSendingStatus
+    @Published var remoteFullPath: String       /** 这个文件在发送端的绝对路径 */
+    @Published var fileHandle: FileHandle       /** 本地存入文件的文件句柄，用于写入数据 */
+    @Published var localSaveFullPath: URL       /** 本地存入文件的绝对路径 */
+    @Published var totalSize: UInt64            /** 文件总字节数 */
+    @Published var fileId: UInt8                /** 前端分配的FileId，确保在前端这里是唯一的即可 */
+    @Published var from: Peer                   /** 发送者 */
+    @Published var progress: UInt64             /** 已经传输了多少字节 */
+    @Published var status: FileSendingStatus    /** 传输状态 */
     
+    /// 把字节数转换为对应的，最合适的单位
+    /// 10240 -> 10 KB
     public var sizeRepresentation: String {
         let units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "啊？", "nb"]
         var unitIndex = 0
@@ -42,11 +46,12 @@ class ReceiveFile: ObservableObject {
         self.status = status
     }
     
+    /// 一个sample file用于在SwiftUI演示页面用的
     public static let sample = ReceiveFile(
-        remoteFullPath: "sample.pdf",
+        remoteFullPath: "D:\\test files\\中文 测试\\sample.pdf",
         fileHandle: FileHandle(),
         localSaveFullPath: .downloadsDirectory,
-        totalSize: 11451419198106660,
+        totalSize: 11451419198106660, // 11.45 PB
         fileId: 255,
         from: .sample,
         progress: 80000,
