@@ -34,7 +34,7 @@ struct LoginView: View {
         Task {
             isLoggingIn = true
             do {
-                try AirXCloud.login(uid: uid, password: password) { response in
+                try AirXCloud.login(uidOrEmail: uid, password: password) { response in
                     guard response.success else {
                         errorMessage = response.message
                         shouldShowAlert = true
@@ -44,10 +44,18 @@ struct LoginView: View {
                     // Success
                     Defaults.write(.savedCredential, value: response.token)
                     Defaults.write(.savedCredentialType, value: .airxToken)
+                    Defaults.write(.loggedInUid, value: uid)
                     GlobalState.shared.isSignedIn = true
 
                     if shouldRememberPassword {
                         Defaults.write(.savedUsername, value: uid)
+                    }
+                    
+                    if WebSocketService.shared.initialize() {
+                        print("Successfully registered with backend.")
+                    }
+                    else {
+                        print("Failed to register with backend.")
                     }
                     presentationMode.wrappedValue.dismiss()
                 }

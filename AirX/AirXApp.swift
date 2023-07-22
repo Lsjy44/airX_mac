@@ -156,6 +156,9 @@ struct AirXApp: App {
             return
         }
         
+        // Clear token
+        AccountUtils.clearSavedUserInfoAndSignOut()
+        
         // Open sign-in window if automatic login failed.
         onToggleSignInOutMenuItemClicked()
     }

@@ -5,3 +5,4 @@ ${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework
 ${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework
 ${BUILT_PRODUCTS_DIR}/GoogleSignIn/GoogleSignIn.framework
 ${BUILT_PRODUCTS_DIR}/GoogleSignInSwiftSupport/GoogleSignInSwift.framework
+${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework

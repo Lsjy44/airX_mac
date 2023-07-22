@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Peer: Identifiable {
+public class Peer: Identifiable {
     let hostName: String
     let host: String
     let port: UInt16
@@ -22,6 +22,10 @@ class Peer: Identifiable {
         self.hostName = hostName
         self.host = host
         self.port = port
+    }
+    
+    public static func fromUid(uid: Int) -> Peer {
+        return Peer(hostName: "UID=\(uid)", host: "AirX Kafka Cluster", port: 0)
     }
     
     /// Peer format: <hostname>@<host>:<port>

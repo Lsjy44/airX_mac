@@ -9,8 +9,16 @@ import Foundation
 import Alamofire
 
 class AirXCloud {
-    private static let BASE = "https://airx.eggtartc.com"
+#if DEBUG
+    public static let API_BASE = "http://localhost:2479"
     
+    // Starscream requires http instead of ws.
+    public static let WEBSOCKET_BASE = "http://localhost:2479/device-register"
+#else
+    public static let API_BASE = "https://airx.eggtartc.com"
+    public static let WEBSOCKET_BASE = "http://airx.eggtartc.com/device-register"
+#endif
+
     enum AirXError: Error {
         case 卧槽
         case incorrectCredential
@@ -39,8 +47,18 @@ class AirXCloud {
         let token: String?
     }
     
+    struct MessageSendPacket: Encodable {
+        let content: String
+        let type: Int
+    }
+    
+    struct MessageSendResponse: Decodable {
+        let success: Bool
+        let message: String
+    }
+    
     public static func login(
-        uid: String,
+        uidOrEmail: String,
         password: String,
         completion: @escaping (_ response: LoginResponse) -> Void
     ) throws {
@@ -48,7 +66,7 @@ class AirXCloud {
         guard let passwordSha256Sha256 = password.sha256()?.sha256() else {
             throw AirXError.卧槽
         }
-        let packet = LoginPacket(uid: uid, password: passwordSha256Sha256, salt: salt)
+        let packet = LoginPacket(uid: uidOrEmail, password: passwordSha256Sha256, salt: salt)
         try post(
             "/auth/token",
             parameters: packet,
@@ -64,6 +82,20 @@ class AirXCloud {
         let packet = RenewPacket(uid: uid)
         try post(
             "/auth/renew",
+            parameters: packet,
+            requireAuthentication: true,
+            completion: completion
+        )
+    }
+    
+    public static func sendMessage(
+        content: String,
+        type: MessageType,
+        completion: @escaping (_ response: MessageSendResponse) -> Void
+    ) throws {
+        let packet = MessageSendPacket(content: content, type: type.rawValue)
+        try post(
+            "/api/v1/message",
             parameters: packet,
             requireAuthentication: true,
             completion: completion
@@ -94,14 +126,26 @@ class AirXCloud {
         }
         
         AF.request(
-            BASE + path,
+            API_BASE + path,
             method: .post,
             parameters: parameters,
             encoder: JSONParameterEncoder.default,
             headers: headers
         ).responseDecodable(of: T.self) { decoded in
-            DispatchQueue.main.async {
-                completion(decoded.value!)
+            if let decodedValue = decoded.value {
+                DispatchQueue.main.async {
+                    completion(decodedValue)
+                }
+            }
+            else if let error = decoded.error {
+                if error.responseCode == 401 {
+                    AccountUtils.clearSavedUserInfoAndSignOut()
+                    AccountUtils.notifySubscribers(didLoginSuccess: false)
+                }
+                print("Error in decoding response: \(error), path: \(path)")
+            }
+            else {
+                print("Error in decoding response: Unknown error")
             }
         }
     }

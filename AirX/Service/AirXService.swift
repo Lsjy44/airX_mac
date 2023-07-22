@@ -83,6 +83,30 @@ private func onFileComing(
     }
 }
 
+public func onTextReceived(
+    incomingString: String,
+    peer: Peer
+) {
+    // Myself?
+    if let currentContent = pasteboard.string(forType: .string) {
+        if currentContent == incomingString {
+            print("Text received from myself. Ignored.")
+            return
+        }
+    }
+
+    // Copy string to pasteboard.
+    pasteboard.declareTypes([.string], owner: nil)
+    lastIncomingString = incomingString
+    guard pasteboard.setString(incomingString, forType: .string) else {
+        return
+    }
+    
+    for subscriber in textChangeSubscribers.values {
+        subscriber(incomingString, peer)
+    }
+}
+
 private func onTextReceived(
     incomingStringPointer: UnsafePointer<CChar>?,
     incomingStringLength: UInt32,
@@ -106,17 +130,8 @@ private func onTextReceived(
         print("Peer parsing failed.")
         return
     }
-    pasteboard.declareTypes([.string], owner: nil)
     
-    // Copy string to pasteboard.
-    lastIncomingString = incomingString
-    guard pasteboard.setString(incomingString, forType: .string) else {
-        return
-    }
-    
-    for subscriber in textChangeSubscribers.values {
-        subscriber(incomingString, peer)
-    }
+    onTextReceived(incomingString: incomingString, peer: peer)
 }
 
 class AirXService {
@@ -288,9 +303,16 @@ class AirXService {
             return
         }
 
-        print("Clipboard changed, broadcasting new text.")
+        print("Clipboard changed, broadcasting new text to LAN.")
         let buffer = newContent.toBuffer()
         airx_broadcast_text(airxPointer!, buffer, newContent.utf8Size())
         buffer.deallocate()
+
+        if GlobalState.shared.isSignedIn {
+            print("Clipboard changed, broadcasting new text to inet.")
+            try? AirXCloud.sendMessage(content: newContent, type: .text, completion: { response in
+                print(response.message)
+            })
+        }
     }
 }

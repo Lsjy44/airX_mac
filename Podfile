@@ -10,6 +10,7 @@ target 'AirXmac' do
   pod 'Alamofire'
   pod 'GoogleSignIn'
   pod 'GoogleSignInSwiftSupport'
+  pod 'Starscream', '~> 4.0.0'
   
   target 'AirXmacTests' do
     inherit! :search_paths

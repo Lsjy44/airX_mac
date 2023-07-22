@@ -27,6 +27,8 @@
 		2F2AF3282A4C573B008B291F /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2AF3272A4C573B008B291F /* Peer.swift */; };
 		2F63CDEB2A6209F600206F64 /* ViewWrapContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F63CDEA2A6209F600206F64 /* ViewWrapContent.swift */; };
 		2F63CDED2A62118000206F64 /* PeerPickerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F63CDEC2A62118000206F64 /* PeerPickerWindow.swift */; };
+		2F782CA92A6C2E7A00E9411B /* WebSocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F782CA82A6C2E7A00E9411B /* WebSocketService.swift */; };
+		2F782CAB2A6C331F00E9411B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F782CAA2A6C331F00E9411B /* Message.swift */; };
 		2FCF62312A3A6EB70071752F /* AirXCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF62302A3A6EB70071752F /* AirXCloud.swift */; };
 		2FCF62352A3A75CB0071752F /* StringHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF62342A3A75CB0071752F /* StringHash.swift */; };
 		2FCF62372A3A7DBB0071752F /* AirXmac-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FCF62362A3A7DBB0071752F /* AirXmac-Info.plist */; };
@@ -110,6 +112,8 @@
 		2F2AF3272A4C573B008B291F /* Peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		2F63CDEA2A6209F600206F64 /* ViewWrapContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWrapContent.swift; sourceTree = "<group>"; };
 		2F63CDEC2A62118000206F64 /* PeerPickerWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerPickerWindow.swift; sourceTree = "<group>"; };
+		2F782CA82A6C2E7A00E9411B /* WebSocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketService.swift; sourceTree = "<group>"; };
+		2F782CAA2A6C331F00E9411B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2FCF62302A3A6EB70071752F /* AirXCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirXCloud.swift; sourceTree = "<group>"; };
 		2FCF62342A3A75CB0071752F /* StringHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHash.swift; sourceTree = "<group>"; };
 		2FCF62362A3A7DBB0071752F /* AirXmac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AirXmac-Info.plist"; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 			children = (
 				2F2AF3272A4C573B008B291F /* Peer.swift */,
 				2F2225CA2A60ED39006656EF /* ReceiveFile.swift */,
+				2F782CAA2A6C331F00E9411B /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -337,6 +342,7 @@
 			children = (
 				2FF5EB3F2A3A3F36005198BF /* AirXService.swift */,
 				2FCF62302A3A6EB70071752F /* AirXCloud.swift */,
+				2F782CA82A6C2E7A00E9411B /* WebSocketService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -624,6 +630,7 @@
 				2FF46E542A6206C900848083 /* PeerPickerView.swift in Sources */,
 				2FCF62312A3A6EB70071752F /* AirXCloud.swift in Sources */,
 				2F2AF3282A4C573B008B291F /* Peer.swift in Sources */,
+				2F782CA92A6C2E7A00E9411B /* WebSocketService.swift in Sources */,
 				2FF5EB342A39FDA7005198BF /* AppDelegate.swift in Sources */,
 				2FF5EB4A2A3A5C73005198BF /* Versions.swift in Sources */,
 				2F0615BA298621B200B151F7 /* AirXWrapper.m in Sources */,
@@ -643,6 +650,7 @@
 				FFB055E22A1A86CE00351C21 /* TextNoticeViewModel.swift in Sources */,
 				2FCF62392A3A95510071752F /* AccountUtils.swift in Sources */,
 				2F03CA652A39F10F00E9D93F /* Defaults.swift in Sources */,
+				2F782CAB2A6C331F00E9411B /* Message.swift in Sources */,
 				2FCF62402A3ABB1B0071752F /* GlobalState.swift in Sources */,
 				FFB055DE2A1A712C00351C21 /* AirXApp.swift in Sources */,
 				FFB055D82A0EC34A00351C21 /* TextNoticeView.swift in Sources */,

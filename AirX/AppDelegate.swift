@@ -17,7 +17,7 @@ class AppDelegate: NSResponder, NSApplicationDelegate {
         airx_init()
         Defaults.tryInitializeConfigurationsForFirstRun()
         registerForGoogleSignIn()
-        AccountUtils.tryAutomaticLogin()
+        AccountUtils.tryLoginWithSavedToken()
         AirXService.startAsync()
 
         print("AirX macOS Frontend")

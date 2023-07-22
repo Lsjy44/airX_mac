@@ -21,7 +21,7 @@ class AccountUtils {
         Defaults.delete(.savedCredentialType)
     }
     
-    private static func notifySubscribers(didLoginSuccess: Bool) {
+    public static func notifySubscribers(didLoginSuccess: Bool) {
         for subscriber in subscribers.values {
             subscriber(didLoginSuccess)
         }
@@ -30,7 +30,7 @@ class AccountUtils {
     /**
      * Return: true if successfully logged in, otherwise, false.
      */
-    public static func tryAutomaticLogin() {
+    public static func tryLoginWithSavedToken() {
         GlobalState.shared.isSignedIn = false
         print("Trying automatic login...")
 
@@ -65,10 +65,18 @@ class AccountUtils {
                 }
                 
                 // Almost there!
-                print("Success.")
+                print("Token renewal success.")
                 GlobalState.shared.isSignedIn = true
                 Defaults.write(.loggedInUid, value: uid)
                 Defaults.write(.savedCredential, value: response.token)
+                
+                /// Register with the backend
+                if WebSocketService.shared.initialize() {
+                    print("Successfully registered with backend.")
+                }
+                else {
+                    print("Failed to register with backend.")
+                }
             }
         }
         catch {
