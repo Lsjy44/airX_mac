@@ -9,11 +9,13 @@ import Foundation
 import Alamofire
 
 class AirXCloud {
-#if !DEBUG
-    public static let API_BASE = "http://localhost:2479"
-    
-    // Starscream requires http instead of ws.
-    public static let WEBSOCKET_BASE = "http://localhost:2479/device-register"
+#if DEBUG
+    // 没事儿暂时不动后端
+    public static let API_BASE = "https://airx.eggtartc.com"
+    public static let WEBSOCKET_BASE = "wss://airx.eggtartc.com/device-register"
+
+    // public static let API_BASE = "http://localhost:2479"
+    // public static let WEBSOCKET_BASE = "http://localhost:2479/device-register"
 #else
     public static let API_BASE = "https://airx.eggtartc.com"
     public static let WEBSOCKET_BASE = "wss://airx.eggtartc.com/device-register"
