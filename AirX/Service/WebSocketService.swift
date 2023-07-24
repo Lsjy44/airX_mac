@@ -27,9 +27,11 @@ class WebSocketService: WebSocketDelegate {
         var request = URLRequest(url: URL(string: AirXCloud.WEBSOCKET_BASE)!)
         request.timeoutInterval = 5
 
+        print("Connecting to the websocket...")
         socket = WebSocket(request: request)
         socket?.delegate = self
         socket?.connect()
+
         return true
     }
     
@@ -100,7 +102,10 @@ class WebSocketService: WebSocketDelegate {
             }
             break
             
-        case .pong(_), .ping(_), .error(_), .viabilityChanged(_), .cancelled:
+        case .error(let e):
+            print(e?.localizedDescription ?? "Unknown websocket error")
+            
+        case .pong(_), .ping(_), .viabilityChanged(_), .cancelled:
             break
         }
     }

@@ -9,14 +9,14 @@ import Foundation
 import Alamofire
 
 class AirXCloud {
-#if DEBUG
+#if !DEBUG
     public static let API_BASE = "http://localhost:2479"
     
     // Starscream requires http instead of ws.
     public static let WEBSOCKET_BASE = "http://localhost:2479/device-register"
 #else
     public static let API_BASE = "https://airx.eggtartc.com"
-    public static let WEBSOCKET_BASE = "http://airx.eggtartc.com/device-register"
+    public static let WEBSOCKET_BASE = "wss://airx.eggtartc.com/device-register"
 #endif
 
     enum AirXError: Error {
@@ -138,10 +138,8 @@ class AirXCloud {
                 }
             }
             else if let error = decoded.error {
-                if error.responseCode == 401 {
-                    AccountUtils.clearSavedUserInfoAndSignOut()
-                    AccountUtils.notifySubscribers(didLoginSuccess: false)
-                }
+                AccountUtils.clearSavedUserInfoAndSignOut()
+                AccountUtils.notifySubscribers(didLoginSuccess: false)
                 print("Error in decoding response: \(error), path: \(path)")
             }
             else {

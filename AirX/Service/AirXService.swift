@@ -139,8 +139,8 @@ class AirXService {
     private static var airxPointer: OpaquePointer?  = .none
 
     // Pasteboard last change count and content.
-    private static var lastPasteboardChangeCount    = NSPasteboard.general.changeCount
-    private static var lastPasteboardContent        = NSPasteboard.general.string(forType: .string) ?? ""
+    private static var lastPasteboardChangeCount    = -1
+    private static var lastPasteboardContent        = ""
     
     // Timer for monitoring the clipboard.
     private static var timer: Timer?                = .none

@@ -51,10 +51,7 @@ struct LoginView: View {
                         Defaults.write(.savedUsername, value: uid)
                     }
                     
-                    if WebSocketService.shared.initialize() {
-                        print("Successfully registered with backend.")
-                    }
-                    else {
+                    if !WebSocketService.shared.initialize() {
                         print("Failed to register with backend.")
                     }
                     presentationMode.wrappedValue.dismiss()

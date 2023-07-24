@@ -71,10 +71,7 @@ class AccountUtils {
                 Defaults.write(.savedCredential, value: response.token)
                 
                 /// Register with the backend
-                if WebSocketService.shared.initialize() {
-                    print("Successfully registered with backend.")
-                }
-                else {
+                if !WebSocketService.shared.initialize() {
                     print("Failed to register with backend.")
                 }
             }
