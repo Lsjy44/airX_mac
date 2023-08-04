@@ -68,7 +68,7 @@ struct LoginView: View {
     }
     
     func onSignUpClicked() {
-        if let url = URL(string: "http://shijunyi-cv.com/shijunyi/shijunyi.html#home") {
+        if let url = URL(string: "https://airx-cloud.eggtartc.com/sign-up") {
             NSWorkspace.shared.open(url)
         }
     }

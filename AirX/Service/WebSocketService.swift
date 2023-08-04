@@ -27,7 +27,7 @@ class WebSocketService: WebSocketDelegate {
         var request = URLRequest(url: URL(string: AirXCloud.WEBSOCKET_BASE)!)
         request.timeoutInterval = 5
 
-        print("Connecting to the websocket...")
+        print("(Re)Connecting to the websocket...")
         socket = WebSocket(request: request)
         socket?.delegate = self
         socket?.connect()

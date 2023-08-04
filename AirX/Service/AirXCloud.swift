@@ -22,7 +22,7 @@ class AirXCloud {
 #endif
 
     enum AirXError: Error {
-        case 卧槽
+        case hashAlgorithmUnavailable
         case incorrectCredential
     }
     
@@ -66,7 +66,7 @@ class AirXCloud {
     ) throws {
         let salt = "114514"
         guard let passwordSha256Sha256 = password.sha256()?.sha256() else {
-            throw AirXError.卧槽
+            throw AirXError.hashAlgorithmUnavailable
         }
         let packet = LoginPacket(uid: uidOrEmail, password: passwordSha256Sha256, salt: salt)
         try post(
