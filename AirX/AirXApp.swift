@@ -58,7 +58,7 @@ struct AirXApp: App {
         DispatchQueue.main.async {
             let selection = UIUtils.alertBox(
                 title: "Received File",
-                message: "\(peer.description) is sending the file \(fileName) (\(fileSize) Bytes) to you!",
+                message: "\(peer.description) is sending \(fileName) (\(fileSize) Bytes) to you!",
                 primaryButtonText: "Accept",
                 secondaryButtonText: "Explicitly Decline",
                 thirdButtonText: "Ignore"
@@ -165,15 +165,17 @@ struct AirXApp: App {
     
     var menuItems: some View {
         VStack {
-            globalState.isServiceOnline
-                ? Text("AirX Is Online!")
-                : Text("AirX Is Offline.")
-            
-            Button("\(globalState.isServiceOnline ? "Stop" : "Start") Service", action: onToggleServiceMenuItemClicked)
-                .keyboardShortcut("S")
-            Button("Open Control Panel", action: onOpenControlPanelMenuItemClicked)
-                .keyboardShortcut("O")
-            
+            Group {
+                globalState.isServiceOnline
+                    ? Text("AirX Is Online!")
+                    : Text("AirX Is Offline.")
+                
+                Button("\(globalState.isServiceOnline ? "Stop" : "Start") Service", action: onToggleServiceMenuItemClicked)
+                    .keyboardShortcut("S")
+                Button("Open Control Panel", action: onOpenControlPanelMenuItemClicked)
+                    .keyboardShortcut("O")
+            }
+
             Divider()
             
             if globalState.isSignedIn {
