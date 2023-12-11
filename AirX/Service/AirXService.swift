@@ -143,10 +143,13 @@ class AirXService {
     private static var lastPasteboardContent        = ""
     
     // Timer for monitoring the clipboard.
-    private static var timer: Timer?                = .none
+    private static var timerClipboardMonitor: Timer? = .none
+
+    private static var timerAutoPeerRefresh: Timer? = .none
     
     // Workers.
     private static var threads: Array<Thread>       = .init()
+
     // Configurations.
     public static let discoveryServiceServerPort   = Defaults.int(.discoveryServiceServerPort)
     public static let discoveryServiceClientPort   = Defaults.int(.discoveryServiceClientPort)
@@ -207,6 +210,7 @@ class AirXService {
             t.start()
         }
         startMonitoringClipboard()
+        startAutoRefreshPeers()
         GlobalState.shared.isServiceOnline = true
     }
 
@@ -218,6 +222,7 @@ class AirXService {
         }
         threads.removeAll()
         stopMonitoringClipboard()
+        stopAutoRefreshPeers()
         GlobalState.shared.isServiceOnline = false
     }
     
@@ -280,7 +285,7 @@ class AirXService {
     
     private static func startMonitoringClipboard() {
         stopMonitoringClipboard()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+        timerClipboardMonitor = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
             if self.lastPasteboardChangeCount != pasteboard.changeCount {
                 self.lastPasteboardChangeCount = pasteboard.changeCount
                 if let newContent = pasteboard.string(forType: .string), newContent != self.lastPasteboardContent {
@@ -292,8 +297,23 @@ class AirXService {
     }
     
     private static func stopMonitoringClipboard() {
-        timer?.invalidate()
-        timer = nil
+        timerClipboardMonitor?.invalidate()
+        timerClipboardMonitor = nil
+    }
+    
+    private static func startAutoRefreshPeers() {
+        stopAutoRefreshPeers()
+        timerAutoPeerRefresh = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
+            guard airxPointer != .none else {
+                return
+            }
+            airx_lan_broadcast(airxPointer)
+        }
+    }
+    
+    private static func stopAutoRefreshPeers() {
+        timerAutoPeerRefresh?.invalidate()
+        timerAutoPeerRefresh = nil
     }
     
     private static func onPasteboardChanged(newContent: String) {
